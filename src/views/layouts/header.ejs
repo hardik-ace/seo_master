@@ -27,7 +27,13 @@
   <!-- Header white box Start -->
   <div class="header-white-box">
     <div class="header-center-title">
-      <h2>SEO</h2>
+      <h2>
+        <% if (typeof pageTitle !== 'undefined'   && pageTitle && pageTitle !=='') { %>
+          <%- pageTitle %>
+        <% } else { %>
+          SEO
+        <% }%>
+      </h2>
     </div>
     <!-- <div></div>
     <div class="header-center-title">
