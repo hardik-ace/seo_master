@@ -34,20 +34,20 @@
 						<div class="card">
 							<div class="card-body">
 								<div class="m-sm-3">
-									<form action="/auth/register" method="POST" class="needs-validation">
+									<form action="/auth/register" method="POST" class="needs-validation ">
                     <div class="row">
                       <div class="mb-3 col-md-6">
                         <label class="form-label">First Name</label> 
                         <input class="form-control form-control-lg" type="text" name="fname" placeholder="Enter your First name" value="<%= (typeof fname !== 'undefined')?fname:'' %>" />
                         <% if(typeof errors !== 'undefined' && errors.fname!=''){ %>
-                        <div class="invalid-feedback"><%= errors.fname %></div>
+                        <div class="text-danger"><%= errors.fname %></div>
                         <% } %>
                       </div>
                       <div class="mb-3 col-md-6">
                         <label class="form-label">Last Name</label>
                         <input class="form-control form-control-lg" type="text" name="lname" placeholder="Enter your Last Name" value="<%= (typeof lname !== 'undefined')?lname:'' %>" /> 
                         <% if(typeof errors !== 'undefined' && errors.lname!=''){ %>
-                        <div class="invalid-feedback "><%= errors.lname %></div>
+                        <div class="text-danger "><%= errors.lname %></div>
                         <% } %>
                       </div>
                     </div>
@@ -56,14 +56,14 @@
                         <label class="form-label">Phone No</label> 
                         <input class="form-control form-control-lg" type="text" name="phone_no" placeholder="Enter your Phone No" value="<%= (typeof phone_no !== 'undefined')?phone_no:'' %>" />
                         <% if(typeof errors !== 'undefined' && errors.phone_no!=''){ %>
-                        <div class="invalid-feedback"><%= errors.phone_no %></div>
+                        <div class="text-danger"><%= errors.phone_no %></div>
                         <% } %>
                       </div>
                       <div class="mb-3 col-md-6">
                         <label class="form-label">User Name</label>
                         <input class="form-control form-control-lg" type="text" name="user_name" placeholder="Enter your User Name" value="<%= (typeof user_name !== 'undefined')?user_name:'' %>" /> 
                         <% if(typeof errors !== 'undefined' && errors.user_name!=''){ %>
-                        <div class="invalid-feedback "><%= errors.user_name %></div>
+                        <div class="text-danger "><%= errors.user_name %></div>
                         <% } %>
                       </div>
                     </div> 
@@ -71,7 +71,7 @@
 											<label class="form-label">Email</label>
 											<input class="form-control form-control-lg" type="text" name="email" placeholder="Enter Email"  value="<%= (typeof email !== 'undefined')?email:'' %>" />
                       <% if(typeof errors !== 'undefined' && errors.email!=''){ %>
-                      <div class="invalid-feedback"><%= errors.email %></div>
+                      <div class="text-danger"><%= errors.email %></div>
                       <% } %>
 										</div>
                     <div class="row">
@@ -79,14 +79,14 @@
                         <label class="form-label">Password</label> 
                         <input class="form-control form-control-lg" type="password" name="password" placeholder="Enter your Password" value="" />
                         <% if(typeof errors !== 'undefined' && errors.password!=''){ %>
-                        <div class="invalid-feedback"><%= errors.password %></div>
+                        <div class="text-danger"><%= errors.password %></div>
                         <% } %>
                       </div>
                       <div class="mb-3 col-md-6">
                         <label class="form-label">Confirm Password</label>
                         <input class="form-control form-control-lg" type="password" name="password_confirm" placeholder="Enter your Confirm Password" value="" /> 
                         <% if(typeof errors !== 'undefined' && errors.password_confirm!=''){ %>
-                        <div class="invalid-feedback"><%= errors.password_confirm %></div>
+                        <div class="text-danger"><%= errors.password_confirm %></div>
                         <% } %>
                       </div>
                     </div>  
@@ -94,14 +94,14 @@
 											<label class="form-label">Store Domain</label>
 											<input class="form-control form-control-lg" type="text" name="store_domain" placeholder="Enter Store Domain"  value="<%= (typeof store_domain !== 'undefined')?store_domain:'' %>" />
                       <% if(typeof errors !== 'undefined' && errors.store_domain!=''){ %>
-                      <div class="invalid-feedback"><%= errors.store_domain %></div>
+                      <div class="text-danger"><%= errors.store_domain %></div>
                       <% } %>
 										</div>
                     <div class="mb-3">
 											<label class="form-label">Access Token</label>
 											<input class="form-control form-control-lg" type="text" name="access_token" placeholder="Enter Access Token"  value="<%= (typeof access_token !== 'undefined')?access_token:'' %>" />
                       <% if(typeof errors !== 'undefined' && errors.access_token!=''){ %>
-                      <div class="invalid-feedback"><%= errors.access_token %></div>
+                      <div class="text-danger"><%= errors.access_token %></div>
                       <% } %>
 										</div>
 										<div class="d-grid gap-2 mt-3">
