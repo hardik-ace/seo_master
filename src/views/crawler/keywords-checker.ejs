@@ -103,14 +103,18 @@
     }
   
     async function searchKeyword() {
-      $('#first_result_div').removeClass('d-none');
-      $('#second_result_div').removeClass('d-none');
-      $('#third_result_div').removeClass('d-none');
       
       const keyword = document.getElementById("keywordInput").value.trim();
       const alertBox = document.getElementById("alert-box");
       const loader = document.getElementById("loader");
-  
+      
+      // display table
+      if(keyword !== "") {
+        $('#first_result_div').removeClass('d-none');
+        $('#second_result_div').removeClass('d-none');
+        $('#third_result_div').removeClass('d-none');
+      }
+
       // Clear previous data
       alertBox.style.display = "none";
       document.getElementById("serpDataTable").innerHTML = "";
@@ -141,14 +145,13 @@
           if (data.detailedData && data.detailedData.length > 0) {
             let serpTableHTML = `<table id="serpTable" class="table table-bordered">
                                   <thead>
-                                    <tr><th>index</th><th>Title</th><th>URL</th><th>keywordFromURL</th><th>Description</th><th>Meta Title</th><th>Meta Description</th></tr>
+                                    <tr><th>index</th><th>Title</th><th>URL</th><th>Description</th><th>Meta Title</th><th>Meta Description</th></tr>
                                   </thead><tbody>`;
             data.detailedData.forEach((item, index) => {
               serpTableHTML += `<tr>
                                   <td>${index + 1}</td>
                                   <td>${item.title}</td>
                                   <td><a href="${item.url}" target="_blank">${item.url}</a></td>
-                                  <td>${item.keywordFromURL}</td>
                                   <td>${item.description}</td>
                                   <td>${item.metaTitle}</td>
                                   <td>${item.metaDescription}</td>
