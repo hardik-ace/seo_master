@@ -65,7 +65,7 @@ p {
 }
 /* left site box Start */
 .leftside-fixed {
-  width: 420px;
+  width: 280px;
   position: fixed;
   top: 0;
   bottom: 0;
@@ -80,12 +80,15 @@ p {
 }
 .left-menu-box {
   margin: 0;
-  padding: 0 30px;
+  padding: 0 15px;
+}
+.left-menu-box a img {
+  width: 25px;
 }
 .leftside-fixed .left-main {
   overflow-y: auto;
-  padding: 0 18px 110px 30px;
-  margin-top: 62px;
+  padding: 0 3px 110px 15px;
+  margin-top: 32px;
 }
 .left-menu {
   margin: 0;
@@ -93,11 +96,11 @@ p {
 }
 .left-menu h2 {
   font-family: "Inter", sans-serif;
-  font-size: 20px;
+  font-size: 18px;
   line-height: 24px;
   color: #fff;
   font-weight: 300;
-  margin: 0 0 36px 0;
+  margin: 0 0 30px 0;
 }
 .left-menu ul {
   list-style: none;
@@ -106,16 +109,16 @@ p {
 }
 .left-menu ul li {
   margin: 0;
-  padding: 24px 17px 24px 13px;
+  padding: 18px 0;
   border-bottom: solid 1px #384e62;
 }
 .left-menu ul li a {
   display: flex;
   align-items: center;
-  grid-column-gap: 20px;
+  grid-column-gap: 10px;
   margin: 0;
   padding: 0;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 22px;
   font-weight: 300;
   color: rgba(139, 167, 192, 1);
@@ -135,7 +138,9 @@ p {
   color: #fff;
   padding-left: 8px;
 }
-
+.left-menu ul li a img {
+  width: 24px;
+}
 .left-menu ul li a:hover img {
   filter: contrast(10);
 }
@@ -144,28 +149,28 @@ p {
   margin-bottom: 36px;
 }
 .quick-access {
-  margin-top: 70px;
+  margin-top: 50px;
 }
 .quick-access .card {
   background-color: #ffffff;
-  border-radius: 10px;
+  border-radius: 6px;
   border: 0;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
 }
 .quick-access .card:last-child {
   margin-bottom: 0;
 }
 .quick-access .card .card-header {
   background-color: #459be8;
-  border-radius: 10px 10px 0 0;
-  font-size: 24px;
+  border-radius: 6px 6px 0 0;
+  font-size: 18px;
   color: #fff;
   font-weight: 600;
-  line-height: 30px;
-  padding: 18px 20px;
+  line-height: 24px;
+  padding: 15px;
 }
 .quick-access .card .card-body {
-  padding: 15px 20px;
+  padding: 10px 15px 15px;
 }
 .quick-access .card .card-body ul.list-group {
   margin: 0;
@@ -173,14 +178,14 @@ p {
 }
 .quick-access .card .card-body ul.list-group li {
   margin: 0;
-  padding: 12px 0 12px 15px;
+  padding: 6px 0 6px 15px;
   border-bottom: 0;
   position: relative;
 }
 .quick-access .card .card-body ul.list-group li::before {
   content: "";
   position: absolute;
-  top: 20px;
+  top: 16px;
   left: 0;
   display: inline-block;
   width: 7px;
@@ -191,7 +196,7 @@ p {
 .quick-access .card .card-body ul.list-group li a {
   margin: 0;
   padding:0;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 24px;
   color: #000;
   font-weight: 400;
@@ -212,15 +217,18 @@ p {
   align-items: center;
   grid-column-gap: 8px;
   background-color: #0e2c47;
-  padding:20px 30px 25px;
+  padding:20px 15px 25px;
   transition: all 0.2s;
+}
+.leftside-fixed .bottom-log-out a img {
+  width: 22px;
 }
 /* .leftside-fixed .bottom-log-out a:hover {
   transform: rotate(145deg);
 } */
 /* hide show Start */
 .leftside-fixed.show {
-  left: -420px;
+  left: -280px;
   transition: all 0.2s;
 }
 .header-content.full-container {
@@ -236,7 +244,7 @@ p {
   display: none;
 }
 .header-content.full-container .header {
-  padding: 27px 25px;
+  padding: 27px 15px;
 }
 .header-content.full-container .header .header-menu {
   display: flex;
@@ -251,14 +259,15 @@ p {
 }
 .header-content.full-container .header .header-menu .menu-icon a img {
   display: block;
+  width: 25px;
 }
 /* hide show End */
 
 /* left site box End */
 .header-content {
   position: relative;
-  width: calc(100% - 420px);
-  left: 420px;
+  width: calc(100% - 280px);
+  left: 280px;
   transition: all 0.2s;
 }
 .header-content .header {
@@ -266,14 +275,14 @@ p {
   justify-content: space-between;
   align-items: center;
   background-color:#0e2c47;
-  padding:15px 25px 15px 0;
+  padding:15px 15px 15px 0;
   margin: 0;
   color: #fff;
 }
 .header-content .header h1 {
-  font-size: 35px;
+  font-size: 28px;
   font-weight: 600;
-  line-height: 42px;
+  line-height: 38px;
   color: #ffffff;
   letter-spacing: 1px;
   margin: 0;
@@ -283,14 +292,14 @@ p {
   align-items: center;
 }
 .header-content .header .search-right-box .search-header {
-  margin-right: 64px;
+  margin-right: 40px;
 }
 .header-content .header .search-right-box .search-header .input-group input {
   background-color: transparent;
   border: 0;
   border-bottom: solid 1px rgba(105, 119, 133, 1);
   border-radius: 0;
-  font-size: 17px;
+  font-size: 15px;
   line-height: 20px;
   font-weight: 300;
   color: #ffffff;
@@ -315,12 +324,15 @@ p {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   background-color: #ffffff;
   border-radius: 50px;
-  padding: 10px;
+  padding: 8px;
   text-decoration: none;
+}
+.header-content .header .search-right-box .user-section a img {
+  width: 20px;
 }
 .header-content .header-white-box {
   padding: 25px 20px;
@@ -492,12 +504,7 @@ p {
 }
 .technical-box h2,
 .actionable-box h2 {
-  font-size: 22px;
-  line-height: 28px;
-  font-weight: 600;
-  color: #000000;
   margin: 0 0 15px 0;
-  text-align: left;
 }
 .technical-box ul.technical-list {
   list-style: none;
@@ -574,7 +581,12 @@ p {
   padding: 25px;
   border-radius: 10px;
 }
-.audience-overview-section h2 {
+.header-content .header-white-box .header-center-title h2,
+.audience-overview-section h2,
+.crawled-pages-box h2,
+.technical-box h2,
+.actionable-box h2,
+.keyword-rankings-section h2 {
   font-size: 22px;
   font-weight: 600;
   color: #000000;
@@ -627,12 +639,7 @@ p {
   justify-content: center;
 }
 .crawled-pages-box h2 {
-  font-size: 22px;
-  line-height: 28px;
-  font-weight: 600;
-  color: #000000;
-  margin: 0;
-  text-align: center;
+   text-align: center;
 }
 .crawled-pages-box ul.crawled-list {
   list-style: none;
@@ -726,7 +733,12 @@ font-weight: 500;
 }
 .product-descriptions-section {
   text-align: left;
-  padding:40px !important;
+  padding:25px 20px !important;
+  font-size: 20px;
+  font-weight: 600;
+  color: #000000;
+  line-height: 28px;
+  margin: 0;
 }
 .product-data-table {
   text-align: left;
@@ -835,11 +847,11 @@ font-weight: 500;
 .accordion-section .accordion .accordion-item h2.accordion-header button.accordion-button {
   background-color: #459be8;
   border-radius: 10px 10px 0 0;
-  font-size: 22px;
+  font-size: 20px;
   line-height: 27px;
   color: #fff;
   font-weight: 600;
-  padding: 26px 40px;
+  padding: 26px 30px;
 }
 .accordion-section .accordion .accordion-item h2.accordion-header button.accordion-button.collapsed {
   border-radius: 10px;
@@ -869,10 +881,10 @@ font-weight: 500;
 .accordion-section .accordion .accordion-body .accordion-table table tbody th {
   width: 190px;
   background-color: #f0f8ff;
-  font-size: 17px;
+  font-size: 16px;
   line-height: 22px;
   font-weight: 500;
-  padding-left: 38px;
+  padding-left: 30px;
 }
 .accordion-section .accordion-discription {
   margin-bottom: 15px;
@@ -884,7 +896,7 @@ font-weight: 500;
 }
 .accordion-section .accordion-discription ul li {
   margin:0;
-  padding: 20px 38px;
+  padding: 20px 30px;
   border-bottom: solid 1px #d1d1d1;
   font-size: 15px;
   line-height: 22px;
@@ -908,7 +920,7 @@ font-weight: 500;
   overflow: hidden;
 }
 h3.second-table {
-  font-size: 26px;
+  font-size: 20px;
   line-height: 32px;
   font-weight: 600;
   color: #000;
@@ -926,7 +938,7 @@ h3.second-table {
   line-height: 14px;
   font-weight: 700;
   color: rgba(0, 0, 0, 1);
-  padding: 21px 30px;
+  padding: 21px 25px;
   text-align: left;
 }
 .crawler-dashboard-section table thead tr th:nth-child(2) {
@@ -936,7 +948,7 @@ h3.second-table {
 }
 .crawler-dashboard-section table tbody tr td,
 .second-table-section table tbody tr td {
-  padding: 24px 30px;
+  padding: 24px 25px;
   font-size: 15px;
   line-height: 14px;
   font-weight: 400;
@@ -946,7 +958,7 @@ h3.second-table {
 }
 .second-table-section table thead tr th,
 .second-table-section table tbody tr td {
-  padding: 22px 30px;
+  padding: 22px 20px;
 }
 .second-table-section table tbody tr td a {
   font-size: 15px;
@@ -1028,7 +1040,7 @@ h3.second-table {
 /* On Page SEO Checker Start */
 .seo-checker-section {
   text-align: left;
-  padding: 40px !important;
+  padding: 25px 20px !important;
 }
 .seo-checker-section p {
   font-size: 17px;
@@ -1063,8 +1075,8 @@ h3.second-table {
   border-top-right-radius: 10px;
   background-color: rgba(69, 155, 232, 1);
   padding: 20px 30px;
-  font-size: 22px;
-  line-height: 27px;
+  font-size: 20px;
+  line-height: 26px;
   font-weight: 600;
   color: #fff;
 }
