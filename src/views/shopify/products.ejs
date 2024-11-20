@@ -33,6 +33,7 @@
                     serverSide: true,
                     pageLength: 10,
                     ajax: function (data, callback) {
+                        $(".data_table_loader").removeClass('d-none');
                         const page = (data.start / data.length) + 1;
                         const limit = data.length;
                         $.ajax({
@@ -44,11 +45,13 @@
                                     recordsFiltered: response.totalProducts,
                                     data: response.final_data,
                                 });
+                                $(".data_table_loader").addClass('d-none');
                             },
                             error: function (err) {
                                 console.error('Error fetching data:', err);
                             }
                         });
+                        
                     },
                     columns: [
                         {
