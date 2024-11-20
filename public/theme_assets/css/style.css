@@ -1084,12 +1084,13 @@ h3.second-table {
 }
 .seo-checker-data-table {
   text-align: left;
+  overflow: hidden;
 }
 .seo-checker-data-table .table-heading {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   background-color: rgba(69, 155, 232, 1);
-  padding: 20px 30px;
+  padding: 20px;
   font-size: 20px;
   line-height: 26px;
   font-weight: 600;
@@ -1098,6 +1099,9 @@ h3.second-table {
 .seo-checker-data-table .table-section .dt-container .dt-layout-row:first-child {
   padding: 20px 20px;
   position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .seo-checker-data-table .table-section .dt-container .dt-layout-row:first-child .dt-layout-start {
   margin-right: 15px;
@@ -1140,12 +1144,15 @@ h3.second-table {
 }
 .table-section table thead tr th {
   background-color: rgba(240, 248, 255, 1);
-  padding: 25px 33px;
+  padding: 25px 15px;
   font-size: 15px;
   line-height: 19px;
   font-weight: 600;
   border-top: 1px solid rgba(0, 0, 0, 0.15);
   border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+.table-section table tbody tr td {
+  padding: 20px 15px;
 }
 .table-section table thead tr th:first-child {
   width: 130px;
@@ -1186,6 +1193,7 @@ h3.second-table {
  font-size: 15px;
  line-height: 22px;
  font-weight: 400;
+ word-break: break-word;
 }
 .table-section table tbody tr td a {
   color: rgba(69, 155, 232, 1);
@@ -1196,7 +1204,9 @@ h3.second-table {
   padding-left: 15px;
 }
 .seo-checker-data-table .table-section .dt-container .dt-layout-row:last-child .dt-layout-start {
-  display: none;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 /* database table pagination Start*/
 .seo-checker-data-table .table-section .dt-container .dt-layout-row:last-child .dt-layout-end {
@@ -1326,4 +1336,9 @@ box-shadow: none;
 }
 .seo-checker-data-table.crawled-home-table .table-section table tbody tr td a {
   white-space: nowrap;
+}
+.table-section .site-audit-table.crawler-dashboard table thead tr th,
+.table-section .site-audit-table.crawler-dashboard table tbody tr td {
+  text-align: left !important;
+  padding:20px;
 }
