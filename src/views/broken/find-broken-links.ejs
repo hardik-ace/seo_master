@@ -23,6 +23,7 @@
   <!-- SEO report End -->
   <!-- Accordion Start -->
   <div class="accordion-section">
+    
     <div class="accordion" id="accordionExample">
       <div class="accordion-item">
         <h2 class="accordion-header">
@@ -33,6 +34,7 @@
         <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
           <div class="accordion-body">
             <div class="accordion-table">
+              <div class="table-responsive">
               <table class="table table-bordered">
                 <tbody>
                   <tr>
@@ -230,6 +232,7 @@
         </tbody>
       </table>
     </div>
+    </div>
   </div>
 </div>
 </div>
@@ -244,18 +247,19 @@ SEO Ranks
     <div class="accordion-table">
       <div class="accordion-body">
         <div class="accordion-discription">
+          <div class="table-responsive">
           <table class="table table-hover my-0 display" style="width:100%">
             <tbody>
               <% seoRanks.forEach(function(item) { %>
               <tr>
-                <td class="d-none d-xl-table-cell"><%= item.name %></td>
-                <td class="d-none d-md-table-cell"><a href="<%= item.url %>" target="_blank">
+                <td class="d-xl-table-cell"><%= item.name %></td>
+                <td class="d-md-table-cell"><a href="<%= item.url %>" target="_blank">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link align-middle me-2">
                   <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
                 <polyline points="15 3 21 3 21 9"></polyline>
               <line x1="10" y1="14" x2="21" y2="3"></line>
             </svg></a></td>
-            <td><span class="badge bg-success">
+            <td><span class="badge bg-success btn-default-bgcolor">
               <% if(item.ranking != 0){ %>
               <%= item.ranking %>
               <% }else{ %>
@@ -266,6 +270,7 @@ SEO Ranks
           <% }); %>
         </tbody>
       </table>
+    </div>
     </div>
   </div>
 </div>
@@ -321,6 +326,7 @@ Crawled Links
 <% }); %>
 </ul>
 </div>
+
 </div>
 </div>
 </div>

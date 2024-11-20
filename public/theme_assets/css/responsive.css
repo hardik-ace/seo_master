@@ -108,16 +108,11 @@
         line-height: 24px;
         margin-bottom: 20px;
     }
-    .accordion-section .accordion .accordion-item h2.accordion-header button.accordion-button {
-        font-size: 22px;
-        line-height: 24px;
-        padding: 20px 30px;
-    }
     .accordion-section .accordion .accordion-body .accordion-table table tbody th {
         padding-left: 30px;
     }
     .accordion-section .accordion-discription ul li {
-        padding-left: 30px;
+        padding-left: 20px;
     }
     .audience-overview-main .overview-box .overview-left-box {
         grid-template-columns: repeat(3, 1fr);
@@ -153,13 +148,6 @@
     .header-content .header .search-right-box .search-header {
         margin-right: 20px;
     }
-    .left-menu ul li a {
-        grid-column-gap: 10px;
-        font-size: 17px;
-    }
-    .left-menu ul li {
-        padding: 20px 10px;
-    }
     .leftside-fixed .bottom-log-out {
         padding: 20px 20px 25px;
     }
@@ -175,15 +163,13 @@
         font-size: 20px;
         line-height: 24px;
     }
-    .seo-checker-data-table .table-section .dt-container .dt-layout-row:first-child {
-        padding: 10px 20px;
-    }
     .seo-report-list {
         grid-template-columns: repeat(3, 1fr);
     }
+    
     .accordion-section .accordion .accordion-item h2.accordion-header button.accordion-button {
-        font-size: 20px;
-        padding: 20px;
+        font-size: 18px;
+        padding: 15px;
     }
     .accordion-section .accordion .accordion-body .accordion-table table tbody th {
         padding-left: 20px;
@@ -309,6 +295,14 @@
     .traffic-analytics-list .traffic-analytics-box:nth-child(3) {
         border-right: solid 1px #d1d1d1;
     }
+    .site-audit-table .dt-layout-row:first-child {
+        flex-direction: column;
+        grid-row-gap: 20px;
+    }
+    .site-audit-table .dt-layout-row:first-child .dt-layout-end .dt-search label {
+        text-align: center !important;
+    }
+    
 }
 
 @media (max-width: 575px) {

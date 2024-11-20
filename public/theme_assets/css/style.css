@@ -769,7 +769,6 @@ font-weight: 500;
 .seo-checker-data-table.product-data-table .table-section #product-dashboard-table_wrapper .dt-layout-cell.dt-layout-full {
   border-radius: 10px;
   border: solid 1px #c9c9c9;
-  border-bottom: 0;
   border-top: 0;
   overflow-x: auto;
 }
@@ -851,7 +850,7 @@ font-weight: 500;
   line-height: 27px;
   color: #fff;
   font-weight: 600;
-  padding: 26px 30px;
+  padding: 20px;
 }
 .accordion-section .accordion .accordion-item h2.accordion-header button.accordion-button.collapsed {
   border-radius: 10px;
@@ -877,6 +876,14 @@ font-weight: 500;
 .accordion-section .accordion .accordion-body .accordion-table table tbody td {
   padding: 18px;
   vertical-align: middle;
+  font-size: 15px;
+  line-height: 24px;
+  color: #000;
+}
+.accordion-section .accordion .accordion-body .accordion-table table tbody td ul li {
+  font-size: 15px;
+  line-height: 24px;
+  margin: 6px 0;
 }
 .accordion-section .accordion .accordion-body .accordion-table table tbody th {
   width: 190px;
@@ -884,7 +891,10 @@ font-weight: 500;
   font-size: 16px;
   line-height: 22px;
   font-weight: 500;
-  padding-left: 30px;
+  padding-left: 20px;
+}
+.accordion-section .accordion .accordion-body .accordion-table table tbody tr:hover:nth-child(odd) {
+  background-color: transparent !important;
 }
 .accordion-section .accordion-discription {
   margin-bottom: 15px;
@@ -895,13 +905,18 @@ font-weight: 500;
   padding: 0;
 }
 .accordion-section .accordion-discription ul li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 15px;
   margin:0;
-  padding: 20px 30px;
+  padding: 20px 20px;
   border-bottom: solid 1px #d1d1d1;
   font-size: 15px;
   line-height: 22px;
   font-weight: 400;
   color: #000;
+  word-break: break-word;
 }
 .accordion-section .accordion-discription ul li:last-child {
   border-bottom: 0;
@@ -1081,7 +1096,7 @@ h3.second-table {
   color: #fff;
 }
 .seo-checker-data-table .table-section .dt-container .dt-layout-row:first-child {
-  padding: 10px 30px;
+  padding: 20px 20px;
   position: relative;
 }
 .seo-checker-data-table .table-section .dt-container .dt-layout-row:first-child .dt-layout-start {
@@ -1268,4 +1283,47 @@ box-shadow: none;
 }
 .traffic-analytics-list .traffic-analytics-box span {
   font-size: 14px;
+}
+
+.site-audit-section {
+
+}
+.btn-default {
+  background-color: rgba(69, 155, 232, 1);
+  border-radius: 5px;
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 500;
+  text-decoration: none;
+  color: #fff !important;
+  padding: 9px 17px;
+  border: 0;
+  clear: both;
+  margin: 0 0 15px 0;
+  display: inline-block;
+  text-align: right;
+}
+.btn-default-bgcolor {
+  background-color: rgba(69, 155, 232, 1) !important;
+}
+.site-audit-table .dt-layout-row:first-child {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.table-section .site-audit-table table thead tr th {
+  padding: 25px 20px;
+}
+.seo-checker-data-table.crawled-home-table .dt-layout-full {
+  overflow-x: auto;
+}
+.seo-checker-data-table.crawled-home-table .table-section table thead tr th,
+.seo-checker-data-table.crawled-home-table .table-section table tbody tr td {
+  text-align: left;
+  padding: 15px 20px;
+  word-break: break-word;
+  white-space: nowrap;
+}
+.seo-checker-data-table.crawled-home-table .table-section table tbody tr td a {
+  white-space: nowrap;
 }

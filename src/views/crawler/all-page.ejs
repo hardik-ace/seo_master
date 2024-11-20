@@ -1,8 +1,19 @@
-<h1 class="text-center h3 mb-3"><strong>Crawled All Pages</strong></h1>
-<a href="/broken/addCrawlerLinks" class="btn btn-success" >New Crawleing Site</a>
+<div class="site-audit-section">
 <div class="row">
-    <div class="col-12 d-flex">
-        <div class="card flex-fill"> 
+    <div class="col-12">
+        <h1 class="text-center h3 mb-3"><strong>Crawled All Pages</strong></h1>
+        <div class="d-flex justify-content-end">
+            <a href="/broken/addCrawlerLinks" class="btn-default" >New Crawleing Site</a>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card"> 
+            <div class="seo-checker-data-table">
+                <div class="table-section">
+                    <div class="site-audit-table">
+                    <div class="table-responsive">
             <table id="datatables-reponsive" class="table table-striped defaultDataTable" style="width:100%"> 
                 <thead>
                     <tr>
@@ -31,10 +42,14 @@
                     <% }); %>
                 </tbody>
             </table>
+            </div>
+            </div>
+            </div>
+            </div>
         </div>
     </div>
 </div>
-
+</div>
 <script>
     $( document ).ready(function() {
         let table = new DataTable('.defaultDataTable', {
