@@ -1195,6 +1195,12 @@ h3.second-table {
  font-weight: 400;
  word-break: break-word;
 }
+/* .table-first .table-section table tbody tr td {
+  word-break: inherit !important;
+} */
+.table-first .table-section table tbody tr td:nth-child(3) {
+  word-break: break-word !important;
+}
 .table-section table tbody tr td a {
   color: rgba(69, 155, 232, 1);
   text-decoration: none;

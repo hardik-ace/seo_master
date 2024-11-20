@@ -24,7 +24,7 @@
   </div>
   <!-- Table 1 Start -->
   <div class="col-md-12 d-none" id="first_result_div">
-    <div class="seo-checker-data-table bg-rounded p-0">
+    <div class="seo-checker-data-table table-first bg-rounded p-0">
       <div class="table-heading">
         Table 1
       </div>
@@ -143,7 +143,7 @@
   
           // Render serpData (if available)
           if (data.detailedData && data.detailedData.length > 0) {
-            let serpTableHTML = `<table id="serpTable" class="table table-bordered">
+            let serpTableHTML = `<div class="table-responsive"><table id="serpTable" class="table table-bordered">
                                   <thead>
                                     <tr><th>index</th><th>Title</th><th>URL</th><th>Description</th><th>Meta Title</th><th>Meta Description</th></tr>
                                   </thead><tbody>`;
@@ -157,7 +157,7 @@
                                   <td>${item.metaDescription}</td>
                                 </tr>`;
             });
-            serpTableHTML += `</tbody></table>`;
+            serpTableHTML += `</tbody></table></div>`;
             serpDataTable.innerHTML = serpTableHTML;
             $('#serpTable').DataTable();
           }
