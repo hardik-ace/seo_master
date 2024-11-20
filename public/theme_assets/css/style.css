@@ -1348,3 +1348,12 @@ box-shadow: none;
   text-align: left !important;
   padding:20px;
 }
+.table-section {
+  position: relative;
+}
+.table-section .data_table_loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(50%, - 50%);
+}
