@@ -1,0 +1,75 @@
+<h1 class="text-center h3 mb-3"><strong>Crawler Dashboard</strong></h1>
+<div class="row">
+    <button style="display:none;" id="second" onclick="startCrawl()">Start Crawl</button>
+    <div class="status">
+        <!-- Display the total counts --> 
+        <h1 class=" h3 mb-3"><strong>Crawled Links</strong></h1> 
+        <div class="card">
+            <table class="table table-bordered defaultDataTable" id="crawled-links-list-table">
+                <thead>
+                    <tr>
+                        <th>Link</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% crawledLinks.forEach(function(crawledLink) { %>
+                    <tr>
+                        <td><%= crawledLink %></td>
+                    </tr>
+                    <% }); %>
+                </tbody>
+            </table> 
+        </div> 
+         
+        <h1 class=" h3 mb-3"><strong>Broken Links</strong></h1> 
+        <div class="card">
+            <table class="table table-bordered defaultDataTable" id="broken-links-list-table">
+                <thead>
+                    <tr>
+                        <th>Link</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% brokenLinks.forEach(function(brokenLink) { %>
+                    <tr>
+                        <td><%= brokenLink %></td>
+                    </tr>
+                    <% }); %> 
+                </tbody>
+            </table> 
+        </div> 
+ 
+        <h1 class=" h3 mb-3"><strong>Links to Crawl</strong></h1>  
+        <div class="card">
+            <table class="table table-bordered defaultDataTable" id="broken-links-list-table">
+                <thead>
+                    <tr>
+                        <th>Link</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% toCrawl.forEach(function(toCrawlLink) { %>
+                    <tr>
+                        <td><%= toCrawlLink %></td>
+                    </tr>
+                    <% }); %> 
+                </tbody>
+            </table> 
+        </div> 
+
+    </div> 
+</div>
+
+<script>
+    $( document ).ready(function() {
+        let table = new DataTable('.defaultDataTable', {
+            pageLength: 10,
+            responsive: true
+        });
+    });
+</script>
+
+
+
+
+ 

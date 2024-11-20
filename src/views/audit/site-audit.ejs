@@ -1,0 +1,45 @@
+<h1 class="text-center h3 mb-3"><strong>site Audit</strong></h1> 
+<a href="/audit/addSiteAudit" class="btn btn-success" >Add New Audit</a>
+<div class="row">
+    <div class="col-12 d-flex">
+        <div class="card flex-fill"> 
+            <table id="datatables-reponsive" class="table table-striped defaultDataTable" style="width:100%"> 
+                <thead>
+                    <tr>
+                        <th>Audit Id</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% allPages.forEach(function(item) { %>
+                        <tr>
+                            <td><%= item.audit_id %></td>
+                            <td><%= item.status %></td>
+                            <td>
+                                <% if(item.status == 'Completed') { %>
+                                    <a href="/audit/viewSiteAudited?id=<%= item.id %>" target="_blank">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link align-middle me-2">
+                                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                            <polyline points="15 3 21 3 21 9"></polyline>
+                                            <line x1="10" y1="14" x2="21" y2="3"></line>
+                                        </svg>
+                                    </a>
+                                <% } %>
+                            </td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    $( document ).ready(function() {
+        let table = new DataTable('.defaultDataTable', {
+            pageLength: 25,
+            responsive: true
+        });
+    });
+</script>

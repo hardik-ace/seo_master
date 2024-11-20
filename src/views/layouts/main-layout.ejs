@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>SEO Dashboard</title>
+		
+		<!-- Bootstrap.min CSS -->
+		<link rel="stylesheet" href="/theme_assets/css/bootstrap.min.css">
+		<!-- Googlefonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+		<!-- Style CSS -->
+		<link rel="stylesheet" href="/theme_assets/css/style.css">
+		<!-- Responsive CSS -->
+		<link rel="stylesheet" href="/theme_assets/css/responsive.css">
+		<script src="/theme_assets/js/jquery.min.js"></script>
+		<script src="/theme_assets/js/dataTables.js"></script>
+		
+	</head>
+	<body>
+		<div class="wrappar">
+			<%- include('../layouts/left-panel.ejs') %>
+			<div class="header-content">
+				<div class="container-fluid">
+					<%- include('../layouts/header.ejs') %>
+					<!-- Container-box Start -->
+					<div class="container-box">
+						<%- body %>
+					</div>
+					<!-- Container-box End -->
+					<%- include('../layouts/footer.ejs') %>
+				</div>
+			</div>
+		</div>
+		
+		<script src="/theme_assets/js/bootstrap.min.js"></script>
+		<script src="/theme_assets/js/bootstrap.bundle.min.js"></script>
+		<script src="/theme_assets/js/custom.js"></script>
+		<!-- import apex chart start -->
+		<script defer src="/theme_assets/js/apexcharts.min.js"></script>
+		<script defer src="/theme_assets/js/apexcharts.esm.js"></script>
+		<!-- import apex chart end -->
+		<!--  charts start -->
+		<script defer src="/theme_assets/js/chart_js/traffic_anlytics_By_month.js"></script>
+		<script defer src="/theme_assets/js/chart_js/site_health.js"></script>
+		<script defer src="/theme_assets/js/chart_js/keyword_ranking.js"></script>
+		<script defer src="/theme_assets/js/chart_js/sessions.js"></script>
+		<script defer src="/theme_assets/js/chart_js/crawlability_count.js"></script>
+		<script defer src="/theme_assets/js/chart_js/core_web_vitals_count.js"></script>
+		<script defer src="/theme_assets/js/chart_js/https_count.js"></script>
+		<script defer src="/theme_assets/js/chart_js/site_performance_count.js"></script>
+		<script defer src="/theme_assets/js/chart_js/internal_linking_count.js"></script>
+		<script defer src="/theme_assets/js/chart_js/markup_count.js"></script>
+		<script defer src="/theme_assets/js/chart_js/crawled_pages.js"></script>
+		<script defer src="/theme_assets/js/chart_js/audiance_overview.js"></script>
+		
+		<script defer src="/theme_assets/js/chart_js/audiance_sessions.js"></script>
+		<script defer src="/theme_assets/js/chart_js/audiance_users.js"></script>
+		<script defer src="/theme_assets/js/chart_js/audiance_pageview.js"></script>
+		<script defer src="/theme_assets/js/chart_js/audiance_pagesessions.js"></script>
+		<script defer src="/theme_assets/js/chart_js/audiance_bounce_rate.js"></script>
+		<script defer src="/theme_assets/js/chart_js/audiance_new_per_sessions.js"></script>
+		<script defer src="/theme_assets/js/chart_js/visitor_pie_chart.js"></script>
+		<!--  charts end -->
+	</body>
+</html>

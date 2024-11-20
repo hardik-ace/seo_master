@@ -1,0 +1,347 @@
+
+@media (max-width: 1650px) {
+    .count-section {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .crawlability-section .crawlability-main {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .backlink-section {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+@media (max-width: 1600px) {
+    .seo-checker-data-table .table-section .dt-container .dt-layout-row:first-child .dt-layout-end .dt-search {
+        display: flex;
+        flex-direction: column;
+        grid-row-gap: 10px;
+    }
+    .seo-checker-data-table .table-section .dt-container .dt-layout-row:first-child .dt-layout-end .dt-search label {
+        font-size: 16px;
+        line-height: 20px;
+    }
+    .seo-checker-data-table .table-section .dt-container .dt-layout-row:first-child .dt-layout-start label {
+        font-size: 16px;
+        line-height: 20px;
+        position: inherit;
+    }
+    .seo-checker-data-table .dt-layout-start .dt-length {
+        display: flex;
+        flex-direction: column-reverse;
+        grid-row-gap: 10px;
+    }
+    .social-competitors-section {
+        grid-template-columns: repeat(1, 1fr);
+     }
+}
+@media (min-width: 1400px) and (max-width: 1600px) {
+    
+}
+@media (max-width: 1400px) {
+    .leftside-fixed {
+        left: -420px;
+    }
+    .header-content {
+        width: calc(100% - 0px);
+        left: 0;
+    }
+    .leftside-fixed.show {
+        left: 0;
+    }
+    .header-content.full-container {
+        width: calc(100% - 420px);
+        left: 420px;
+    }
+    .header-content.full-container .header {
+        padding-left: 0;
+    }
+    .header-content.full-container .header .header-menu .menu-icon {
+        display: none;
+    }
+    .header-menu {
+        display: flex;
+        align-items: center;
+        grid-column-gap: 10px;
+    }
+    .header-content .header {
+        padding: 15px 25px;
+    }
+    .header-content .header .header-menu .menu-icon {
+        display: block;
+    }
+    .header-content .header h1 {
+        font-size: 28px;
+        line-height: 34px;
+    }
+    .count-section {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .backlink-section {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .crawlability-section .crawlability-main {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .social-competitors-section {
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .header-content .header .search-right-box .user-section a {
+        width: 40px;
+        height: 40px;
+    }
+    .header-content .header .search-right-box .user-section a img {
+        width: 20px;
+    }
+    .header-content .header-white-box .header-center-title h2 {
+        font-size: 24px;
+        line-height: 30px;
+    }
+    .crawler-dashboard-section {
+        margin-bottom: 0;
+    }
+    h3.second-table {
+        font-size: 20px;
+        line-height: 24px;
+        margin-bottom: 20px;
+    }
+    .accordion-section .accordion .accordion-item h2.accordion-header button.accordion-button {
+        font-size: 22px;
+        line-height: 24px;
+        padding: 20px 30px;
+    }
+    .accordion-section .accordion .accordion-body .accordion-table table tbody th {
+        padding-left: 30px;
+    }
+    .accordion-section .accordion-discription ul li {
+        padding-left: 30px;
+    }
+    .audience-overview-main .overview-box .overview-left-box {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+@media (max-width: 1199px) {
+    .header-content .header h1 {
+        font-size: 24px;
+        line-height: 30px;
+    }
+    .header-content .header .header-menu .menu-icon a img {
+        width: 28px;
+    }
+    .seo-report-list .seo-report-box {
+        padding: 25px 20px;
+    }
+    .seo-report-list .seo-report-box h3 {
+        font-size: 16px;
+    }
+    .audience-overview-main .overview-box {
+        grid-template-columns: 1fr;
+        grid-row-gap: 30px;
+    }
+}
+@media (max-width: 991px) {
+    .leftside-fixed .left-main {
+        padding: 0 10px 110px 20px;
+        margin-top: 32px;
+    }
+    .left-menu-box {
+        padding: 0 20px;
+    }
+    .header-content .header {
+        padding: 15px 20px;
+    }
+    .header-content .header .search-right-box .search-header {
+        margin-right: 20px;
+    }
+    .left-menu ul li a {
+        grid-column-gap: 10px;
+        font-size: 17px;
+    }
+    .left-menu ul li {
+        padding: 20px 10px;
+    }
+    .leftside-fixed .bottom-log-out {
+        padding: 20px 20px 25px;
+    }
+    .crawler-dashboard-section table thead tr th, .second-table-section table thead tr th {
+        font-size: 17px;
+        padding: 18px 20px;
+    }
+    .crawler-dashboard-section table tbody tr td, .second-table-section table tbody tr td {
+        padding: 20px;
+    }
+    .seo-checker-data-table .table-heading {
+        padding: 15px 20px;
+        font-size: 20px;
+        line-height: 24px;
+    }
+    .seo-checker-data-table .table-section .dt-container .dt-layout-row:first-child {
+        padding: 10px 20px;
+    }
+    .seo-report-list {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .accordion-section .accordion .accordion-item h2.accordion-header button.accordion-button {
+        font-size: 20px;
+        padding: 20px;
+    }
+    .accordion-section .accordion .accordion-body .accordion-table table tbody th {
+        padding-left: 20px;
+    }
+    .accordion-section .accordion-discription ul li {
+        padding: 20px;
+    }
+    .product-descriptions-section {
+        padding: 25px !important;
+    }
+    .traffic-analytics-list {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .traffic-analytics-list .traffic-analytics-box h3 {
+        font-size: 22px;
+        line-height: 30px;
+    }
+    .traffic-analytics-list .traffic-analytics-box:nth-child(3) {
+        border-right: 0;
+    }
+    .traffic-analytics-list .traffic-analytics-box:nth-child(5) {
+        border-right: solid 1px #d1d1d1;
+    }
+}
+
+@media (max-width: 767px) {
+    .header-content .header-white-box {
+        padding: 20px;
+    }
+    .header-content .header-white-box .header-center-title h2 {
+        font-size: 20px;
+        line-height: 24px;
+    }
+    h3.second-table {
+        font-size: 18px;
+    }
+    .header-content .header h1 {
+        font-size: 22px;
+        line-height: 28px;
+    }
+    .header-content .header .search-right-box .search-header {
+        width: 200px;
+        margin-right: 20px;
+        margin-left: 15px;
+        position: absolute;
+        right: 30px;
+        top: 66px;
+        background-color: #0e2c47;
+    }
+    .header-content .header .search-right-box .search-header .input-group button {
+        border-bottom: 0;
+        position: absolute;
+        right: 8px;
+        top: -56px;
+    }
+    .header-content .header .search-right-box .search-header .input-group button:hover,
+    .header-content .header .search-right-box .search-header .input-group button:focus,
+    .header-content .header .search-right-box .search-header .input-group button:focus-visible,
+    .header-content .header .search-right-box .search-header .input-group button:active {
+        background-color: transparent;
+        box-shadow: none;
+    }
+    .header-content .header .search-right-box .search-header .input-group input {
+        font-size: 15px;
+        padding: 15px;
+        display: none;
+    }
+    .header-content .header h1 {
+        font-size: 18px;
+        line-height: 20px;
+    }
+    .header-content .header .header-menu .menu-icon a img {
+        width: 25px;
+    }
+    .header-content .header .search-right-box .user-section a {
+        width: 36px;
+        height: 36px;
+    }
+    .header-content .header .search-right-box .user-section a img {
+        width: 18px;
+    }
+    .pagination-section {
+        padding: 20px 0;
+    }
+    .seo-checker-data-table .table-section .dt-container .dt-layout-row:last-child .dt-layout-end .dt-paging {
+        max-width: 300px;
+        margin: 0 auto;
+    }
+    .seo-checker-data-table .table-section .dt-container .dt-layout-row:first-child {
+        display: flex;
+    }
+    .seo-checker-data-table .table-section .dt-container .dt-layout-row:first-child .dt-layout-end .dt-search label {
+        text-align: left;
+    }
+    .seo-checker-section p {
+        font-size: 15px;
+    }
+    .seo-report-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .audience-overview-main .overview-box .overview-left-box {
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .crawled-pages-box h2,
+    .audience-overview-section h2,
+    .technical-box h2, .actionable-box h2,
+    .keyword-rankings-section h2 {
+        font-size: 20px;
+    }
+    .crawlability-section .crawlability-main {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .traffic-analytics-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .traffic-analytics-list .traffic-analytics-box:last-child {
+        border-right: solid 1px #d1d1d1;
+    }
+    .traffic-analytics-list .traffic-analytics-box:nth-child(2),
+    .traffic-analytics-list .traffic-analytics-box:nth-child(4) {
+        border-right:0;
+    }
+    .traffic-analytics-list .traffic-analytics-box:nth-child(3) {
+        border-right: solid 1px #d1d1d1;
+    }
+}
+
+@media (max-width: 575px) {
+    .audience-overview-main .overview-box .overview-left-box {
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .crawlability-section .crawlability-main {
+        grid-template-columns: repeat(1, 1fr);
+    }
+    
+}
+
+@media (max-width: 480px) {
+    .seo-report-list {
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .traffic-analytics-list {
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .traffic-analytics-list .traffic-analytics-box:last-child {
+        border-right: 0;
+      }
+      .traffic-analytics-list .traffic-analytics-box {
+        border-right: 0;
+    }
+    .traffic-analytics-list .traffic-analytics-box:nth-child(3) {
+        border-right: 0;
+    }
+}
+
+/* @media (min-width: 768px) {
+
+} */
+
+/* @media (min-width: 768px) and (max-width: 991px) {
+
+} */

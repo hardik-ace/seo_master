@@ -1,0 +1,129 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="product-descriptions-section bg-rounded">
+      <h2 class="mb-3">Optimize Your Collection Pages for Maximum Visibility</h2>
+      <p>Enhance your collection pages with targeted SEO techniques to boost visibility and attract more visitors. Learn how to optimize titles, descriptions, and images to improve search rankings and drive engagement.</p>
+    </div>
+  </div>
+  <div class="col-md-12">
+    <div class="seo-checker-data-table product-data-table">
+      <div class="table-section">
+        <div class="table-responsive">
+           <table id="product-dashboard-table" class="display nowraptable table-striped fetchDataTable" style="width:100%"></table>    
+            </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+ <script>
+    async function fetchDataTable(page = 1) {  
+        try { 
+            $('.fetchDataTable').DataTable({ 
+                processing: true,
+                serverSide: true,
+                pageLength: 10,
+                ajax: function (data, callback) { 
+                    const page = (data.start / data.length) + 1;
+                    const limit = data.length; 
+                    $.ajax({
+                        url: `/shopify/getCollections?page=${page}&limit=${limit}`,
+                        method: 'GET',
+                        success: function (response) { 
+                            callback({
+                                recordsTotal: response.filterCollections,
+                                recordsFiltered: response.totalCollections,
+                                data: response.final_data,
+                            });
+                        },
+                        error: function (err) {
+                            console.error('Error fetching data:', err);
+                        }
+                    });
+                }, 
+                columns: [ 
+                    {
+                        title: "Category Image",
+                        data: "image",
+                        render: function (data, type, row) {
+                            var img_src = (data!=null)?data:"/images/default-product.png";
+                            return `<img src="${img_src}" alt="Category Image" width="50" height="50">`;
+                        }
+                    }, 
+                    { title: "Title", data: "title" },  
+                    { title: "Meta Title", data: "metaTitle" ,className: 'metaTitle' },
+                    { title: "Meta Description", data: "metaDescription" }, 
+                    {
+                        title: "Link",
+                        data: "collectionUrl",
+                        render: function (data, type, row) {
+                            return `<a class="link" target="_blank" href="${data}">
+                                        <img src="/theme_assets/images/link.svg" alt="Link">
+                                    </a>`;
+                        },
+                        orderable: false,
+                    }, 
+                    {
+                        title: "Action",
+                        data: "collectionUrl",
+                        render: function (data, type, row) {
+                            return `<a href="#" data-href="${data}" class="seorank"  >Generate Seo Report</a>`;
+                        },
+                        orderable: false,
+                    },
+                    {
+                        title: "Action",
+                        data: "handle",
+                        render: function (data, type, row) {
+                            return `<a type="button" class="">Generate with AI</a>`;
+                        },
+                        orderable: false,
+                    },
+
+                ]
+            });
+            
+        } catch (error) {
+            console.error("Error fetching Produts:", error);
+        }
+    }
+
+    fetchDataTable();
+
+    $(document).ready(function(){
+        $(document).on("click", ".seorank", function(){
+            if($(this).parents("tr").find(".metaTitle").text().trim() != ""){
+                var meta_title = $(this).parents("tr").find(".metaTitle").text().trim();    
+            }else{
+                var meta_title = '';//$(this).parents("tr").find(".itemTitle").text().trim();    
+            }
+            
+            var href = $(this).attr("data-href");
+
+            if(meta_title != ""){                
+                $.ajax({
+                    type: "POST",
+                    dataType: "text",
+                    url: "/broken/fetchSeoRanking",
+                    data: { tags: meta_title, url: href},
+                    success: function (result) {
+                        var resultJson = $.parseJSON(result);
+                        console.log(resultJson)
+                        var tags = '';
+                        $.each(resultJson.googleRankings, function(key, value){
+                            console.log(value)
+                            if(tags != ""){
+                                tags += ",";
+                            }
+                            tags += value.tag+"_"+value.ranking;
+                        });
+                        window.open("/broken/findBrokenLinks?url="+href+"&tags="+tags, '_blank')
+                    }
+                });
+            }else{
+                window.open("/broken/findBrokenLinks?url="+href, '_blank')
+            }
+        });
+    });
+
+</script>

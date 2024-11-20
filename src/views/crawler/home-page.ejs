@@ -1,0 +1,44 @@
+<h1 class="text-center h3 mb-3"><strong>Crawled Home Page</strong></h1>
+<div class="row">
+    <div class="col-12 d-flex">
+        <div class="card flex-fill"> 
+            <table id="datatables-reponsive" class="table table-striped defaultDataTable" style="width:100%"> 
+                <thead>
+                    <tr>
+                        <th class="d-none d-xl-table-cell">Page Link</th>
+                        <th class="d-none d-md-table-cell">Find Errors</th>
+                        <th class="d-none d-md-table-cell">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% allPages.forEach(function(item) { %>
+                        <tr>
+                            <td class="d-none d-xl-table-cell"><%= item %></td>
+                            <td class="d-none d-md-table-cell">
+                                <a href="<%= item %>" target="_blank">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link align-middle me-2">
+                                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                        <polyline points="15 3 21 3 21 9"></polyline>
+                                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                                    </svg>
+                                </a>
+                            </td>
+                            <td> 
+                                <a href="/broken/findBrokenLinks?url=<%= item %>" target="_blank" class="btn btn-success">Generate Seo Report</a>
+                            </td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    $( document ).ready(function() {
+        let table = new DataTable('.defaultDataTable', {
+            pageLength: 25,
+            responsive: true
+        });
+    });
+</script>

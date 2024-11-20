@@ -1,0 +1,95 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="product-descriptions-section bg-rounded">
+      <h2 class="mb-3">Boost Your Sales with SEO-Optimized Product Descriptions</h2>
+      <p>Lorem ipsum dolor sit amet consectetur adipiscing elit Integer lacinia malesuada justo sit amet vestibulum orci tristique non nunc non ultricies enim ut a accumsan dolor semec nullam
+      dapibus rhoncus vehicular sed lorem est consectetur et interdum et vulputate in mauris vestibulum ullamcorper sapien eget sodales feugiat etiam ut justo ut sem molestie viverra id massa pellentesque non tellus urna donec at dolor orci nulla et erat consequat porta tellus nec lacinia lacus vivamus placerat posuere dictum nam luctus venenatis mauris et luctus act.</p>
+    </div>
+  </div>
+  <div class="col-md-12">
+    <div class="seo-checker-data-table product-data-table">
+      <div class="table-section">
+        <div class="table-responsive">
+           <table id="product-dashboard-table" class="display nowraptable table-striped fetchDataTable" style="width:100%"></table>    
+            </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    async function fetchDataTable(page = 1) {  
+        try { 
+            $('.fetchDataTable').DataTable({ 
+                processing: true,
+                serverSide: true,
+                pageLength: 10,
+                ajax: function (data, callback) { 
+                    const page = (data.start / data.length) + 1;
+                    const limit = data.length; 
+                    $.ajax({
+                        url: `/shopify/getProducts?page=${page}&limit=${limit}`,
+                        method: 'GET',
+                        success: function (response) { 
+                            callback({
+                                recordsTotal: response.filterProducts,
+                                recordsFiltered: response.totalProducts,
+                                data: response.final_data,
+                            });
+                        },
+                        error: function (err) {
+                            console.error('Error fetching data:', err);
+                        }
+                    });
+                }, 
+                columns: [ 
+                    {
+                        title: "Prdouct Image",
+                        data: "image",
+                        render: function (data, type, row) {
+                            var img_src = (data!=null)?data:"/images/default-product.png";
+                            return `<img src="${img_src}" alt="Product Image" width="50" height="50">`;
+                        }
+                    }, 
+                    { title: "Title", data: "title" },
+                    { title: "Keywords", data: "tags" },
+                    { title: "Type", data: "productType" },
+                    { title: "Meta Title", data: "metaTitle" },
+                    { title: "Meta Description", data: "metaTitle" }, 
+                    {
+                        title: "Link",
+                        data: "productUrl",
+                        render: function (data, type, row) {
+                            return `<a class="link" target="_blank" href="${data}">
+                                        <img src="/theme_assets/images/link.svg" alt="Link">
+                                    </a>`;
+                        },
+                        orderable: false,
+                    },
+                    {
+                        title: "Action",
+                        data: "productUrl",
+                        render: function (data, type, row) {
+                            return `<a href="/broken/findBrokenLinks?url=${data}" target="_blank">Generate Seo Report</a>`;
+                        },
+                        orderable: false,
+                    },
+                    {
+                        title: "Action",
+                        data: "handle",
+                        render: function (data, type, row) {
+                            return `<a type="button" class="">Generate with AI</a>`;
+                        },
+                        orderable: false,
+                    },
+
+                ]
+            });
+            
+        } catch (error) {
+            console.error("Error fetching Produts:", error);
+        }
+    }
+
+    fetchDataTable();
+</script>

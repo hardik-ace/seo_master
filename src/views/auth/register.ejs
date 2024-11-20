@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
+	<meta name="author" content="AdminKit">
+	<meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link rel="shortcut icon" href="/assets/img/icons/icon-48x48.png" />
+	<title>Sign Up | SEO Master</title>
+
+	<link href="/assets/css/app.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+	<main class="d-flex w-100">
+		<div class="container d-flex flex-column">
+			<div class="row vh-100">
+				<div class="col-sm-10 col-md-8 col-lg-6 col-xl-8 mx-auto d-table h-100">
+					<div class="d-table-cell align-middle">
+
+						<div class="text-center mt-4">
+							<h1 class="h2">Get started</h1>
+							<p class="lead">
+								Start creating the best possible user experience for you customers.
+							</p>
+						</div>
+
+						<div class="card">
+							<div class="card-body">
+								<div class="m-sm-3">
+									<form action="/auth/register" method="POST" class="needs-validation">
+                    <div class="row">
+                      <div class="mb-3 col-md-6">
+                        <label class="form-label">First Name</label> 
+                        <input class="form-control form-control-lg" type="text" name="fname" placeholder="Enter your First name" value="<%= (typeof fname !== 'undefined')?fname:'' %>" />
+                        <% if(typeof errors !== 'undefined' && errors.fname!=''){ %>
+                        <div class="invalid-feedback"><%= errors.fname %></div>
+                        <% } %>
+                      </div>
+                      <div class="mb-3 col-md-6">
+                        <label class="form-label">Last Name</label>
+                        <input class="form-control form-control-lg" type="text" name="lname" placeholder="Enter your Last Name" value="<%= (typeof lname !== 'undefined')?lname:'' %>" /> 
+                        <% if(typeof errors !== 'undefined' && errors.lname!=''){ %>
+                        <div class="invalid-feedback "><%= errors.lname %></div>
+                        <% } %>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="mb-3 col-md-6">
+                        <label class="form-label">Phone No</label> 
+                        <input class="form-control form-control-lg" type="text" name="phone_no" placeholder="Enter your Phone No" value="<%= (typeof phone_no !== 'undefined')?phone_no:'' %>" />
+                        <% if(typeof errors !== 'undefined' && errors.phone_no!=''){ %>
+                        <div class="invalid-feedback"><%= errors.phone_no %></div>
+                        <% } %>
+                      </div>
+                      <div class="mb-3 col-md-6">
+                        <label class="form-label">User Name</label>
+                        <input class="form-control form-control-lg" type="text" name="user_name" placeholder="Enter your User Name" value="<%= (typeof user_name !== 'undefined')?user_name:'' %>" /> 
+                        <% if(typeof errors !== 'undefined' && errors.user_name!=''){ %>
+                        <div class="invalid-feedback "><%= errors.user_name %></div>
+                        <% } %>
+                      </div>
+                    </div> 
+										<div class="mb-3">
+											<label class="form-label">Email</label>
+											<input class="form-control form-control-lg" type="text" name="email" placeholder="Enter Email"  value="<%= (typeof email !== 'undefined')?email:'' %>" />
+                      <% if(typeof errors !== 'undefined' && errors.email!=''){ %>
+                      <div class="invalid-feedback"><%= errors.email %></div>
+                      <% } %>
+										</div>
+                    <div class="row">
+                      <div class="mb-3 col-md-6">
+                        <label class="form-label">Password</label> 
+                        <input class="form-control form-control-lg" type="password" name="password" placeholder="Enter your Password" value="" />
+                        <% if(typeof errors !== 'undefined' && errors.password!=''){ %>
+                        <div class="invalid-feedback"><%= errors.password %></div>
+                        <% } %>
+                      </div>
+                      <div class="mb-3 col-md-6">
+                        <label class="form-label">Confirm Password</label>
+                        <input class="form-control form-control-lg" type="password" name="password_confirm" placeholder="Enter your Confirm Password" value="" /> 
+                        <% if(typeof errors !== 'undefined' && errors.password_confirm!=''){ %>
+                        <div class="invalid-feedback"><%= errors.password_confirm %></div>
+                        <% } %>
+                      </div>
+                    </div>  
+                    <div class="mb-3">
+											<label class="form-label">Store Domain</label>
+											<input class="form-control form-control-lg" type="text" name="store_domain" placeholder="Enter Store Domain"  value="<%= (typeof store_domain !== 'undefined')?store_domain:'' %>" />
+                      <% if(typeof errors !== 'undefined' && errors.store_domain!=''){ %>
+                      <div class="invalid-feedback"><%= errors.store_domain %></div>
+                      <% } %>
+										</div>
+                    <div class="mb-3">
+											<label class="form-label">Access Token</label>
+											<input class="form-control form-control-lg" type="text" name="access_token" placeholder="Enter Access Token"  value="<%= (typeof access_token !== 'undefined')?access_token:'' %>" />
+                      <% if(typeof errors !== 'undefined' && errors.access_token!=''){ %>
+                      <div class="invalid-feedback"><%= errors.access_token %></div>
+                      <% } %>
+										</div>
+										<div class="d-grid gap-2 mt-3">
+                      <button type="submit" class="btn btn-lg btn-primary">Sign Up</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+						<div class="text-center mb-3">
+							Already have account? <a href="/login" class="">Sign in</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+	<script src="/assets/js/app.js"></script>
+</body>
+</html>
