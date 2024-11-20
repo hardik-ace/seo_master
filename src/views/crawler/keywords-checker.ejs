@@ -23,7 +23,7 @@
       <div class="spinner-border" role="status"></div>
   </div>
   <!-- Table 1 Start -->
-  <div class="col-md-12">
+  <div class="col-md-12 d-none" id="first_result_div">
     <div class="seo-checker-data-table bg-rounded p-0">
       <div class="table-heading">
         Table 1
@@ -35,7 +35,7 @@
   </div>
   <!-- Table 1 End -->
   <!-- Table 2 Start -->
-  <div class="col-xl-6">
+  <div class="col-xl-6 d-none" id="second_result_div">
     <div class="seo-checker-data-table bg-rounded p-0">
       <div class="table-heading">
         Table 2
@@ -49,7 +49,7 @@
   </div>
   <!-- Table 2 End -->
   <!-- Table 3 Start -->
-  <div class="col-xl-6">
+  <div class="col-xl-6 d-none" id="third_result_div">
     <div class="seo-checker-data-table bg-rounded p-0">
       <div class="table-heading">
         Table 3
@@ -103,6 +103,10 @@
     }
   
     async function searchKeyword() {
+      $('#first_result_div').removeClass('d-none');
+      $('#second_result_div').removeClass('d-none');
+      $('#third_result_div').removeClass('d-none');
+      
       const keyword = document.getElementById("keywordInput").value.trim();
       const alertBox = document.getElementById("alert-box");
       const loader = document.getElementById("loader");
