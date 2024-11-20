@@ -21,7 +21,7 @@ exports.siteAudit = async function (req, res) {
   }); 
 
    
-  res.render('audit/site-audit',{ allPages: site_audit });
+  res.render('audit/site-audit',{ allPages: site_audit,pageTitle:'Site Audit' });
 };
 
 exports.addSiteAudit = async function (req, res) {

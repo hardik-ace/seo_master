@@ -103,7 +103,8 @@ exports.allPages = async function (req, res) {
             res.render('broken/find-all-pages-broken-links', {
                 crawledLinks: crawledArr,
                 brokenLinks: brokenLinks,
-                toCrawl: toCrawl
+                toCrawl: toCrawl,
+                pageTitle:'Crawler Dashboard'
             });
 
           } else {

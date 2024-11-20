@@ -15,7 +15,7 @@ exports.crawlerHomePage = async function (req, res) {
     masterLinksRes = Array.from(masterLinks);
   }
 
-  res.render('crawler/home-page',{ allPages: Array.from(masterLinks) });
+  res.render('crawler/home-page',{ allPages: Array.from(masterLinks),pageTitle:'Crawled Home Page' });
 };
 
 exports.crawlerAllPages = async function (req, res) {
@@ -33,7 +33,7 @@ exports.crawlerAllPages = async function (req, res) {
     });
   }); 
 
-  res.render('crawler/all-page',{ allPages: crawler_links });
+  res.render('crawler/all-page',{ allPages: crawler_links,pageTitle:'Crawled All Pages' });
 };
 
 
