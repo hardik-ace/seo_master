@@ -1,6 +1,8 @@
 'use strict';
 const Auth = require('../models/auth.model');
 const AuditModel = require('../models/audit.model');
+const CrawlerModel = require('../models/crawler.model');
+
 const { validationResult } = require("express-validator");
 const bcrypt = require('bcrypt');
 
@@ -128,6 +130,7 @@ exports.addRegistration = function (req, res) {
         var customer_id = user;
         let randomInt = Math.floor(Math.random() * 100000000);
         randomInt = randomInt.toString().padStart(8, '0');
+
         var addSiteAudits = {
           customer_id: customer_id,
           audit_id: randomInt,
@@ -137,11 +140,27 @@ exports.addRegistration = function (req, res) {
         AuditModel.create(new AuditModel(addSiteAudits), function (err, indertId) {
           if (err) {
             res.send('error: ' + err);
-          } else {
-            
           }
         });
         // code end for add site audit after register
+
+        // code start for add crwal link after register
+        let randomIntCrawl = Math.floor(Math.random() * 100000000);
+        randomIntCrawl = randomIntCrawl.toString().padStart(8, '0');
+
+        var addCrawlerLink = {
+          customer_id: customer_id,
+          crawler_id: randomIntCrawl,
+          file_name: randomIntCrawl + "_crawledLinks.json",
+          status: 'Padding',
+        };
+
+        CrawlerModel.create(new CrawlerModel(addCrawlerLink), function (err, indertId) {
+          if (err) {
+            res.send('error: ' + err);
+          }
+        });
+
         req.flash('success', 'User successfully added');
         res.redirect('/auth');
       }
