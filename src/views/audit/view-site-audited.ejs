@@ -1,34 +1,46 @@
 <div class="row">
     <!-- Link Type Table Start -->
     <div class="col-md-12">
-        <div class="crawler-dashboard-section">
+        <div class="crawler-dashboard-section crawler-dashboard-main">
             <!-- Table responsive Start -->
-            <div class="table-section">
-            <div class="table-responsive">
-                <table class="table table-borderless table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">Link Type</th>
-                            <th scope="col">Backlinks</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Crawled Links:</td>
-                            <td><%= crawledLinks.length %></td>
-                        </tr>
-                        <tr>
-                            <td>Broken Links:</td>
-                            <td><%= brokenLinks.length %></td>
-                        </tr>
-                        <tr>
-                            <td>Links to Crawl:</td>
-                            <td><%= toCrawl.length %></td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="card">
+                <div class="seo-checker-data-table">
+                    <div class="table-section">
+                        <div class="site-audit-table">
+                            <div class="table-responsive">
+                                <table class="table table-borderless table-striped mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Link Type</th>
+                                            <th scope="col">Backlinks</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Crawled Links:</td>
+                                            <td>
+                                                <%= crawledLinks.length %>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Broken Links:</td>
+                                            <td>
+                                                <%= brokenLinks.length %>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Links to Crawl:</td>
+                                            <td>
+                                                <%= toCrawl.length %>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
             <!-- Table responsive Start -->
         </div>
     </div>
@@ -36,55 +48,71 @@
     <!-- Crawled Links Table Start -->
     <div class="col-md-12">
         <h3 class="second-table">Crawled Links</h3>
+        <div class="card">
         <div class="second-table-section">
-            <!-- Table responsive Start -->
-            <div class="table-responsive">
-                <table class="table table-borderless table-striped defaultDataTable">
-                    <thead>
-                        <tr>
-                            <th scope="col">Links</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% crawledLinks.forEach(function(crawledLink) { %>
-                            <tr>
-                                <td><a href="<%= crawledLink %>" target="_blank" ><%= crawledLink %></a></td>
-                            </tr>
-                        <% }); %> 
-                    </tbody>
-                </table>
+            <div class="seo-checker-data-table seo-checker-table">
+                <div class="table-section">
+                    <div class="site-audit-table">
+                        <div class="table-responsive">
+                            <table class="table table-borderless table-striped defaultDataTable">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Links</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% crawledLinks.forEach(function(crawledLink) { %>
+                                        <tr>
+                                            <td><a href="<%= crawledLink %>" target="_blank">
+                                                    <%= crawledLink %>
+                                                </a></td>
+                                        </tr>
+                                        <% }); %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <!-- Table responsive Start -->
+        </div>
         </div>
     </div>
     <!-- Crawled Links Table End -->
 
 
-    <!-- Crawled Links Table Start -->
+    <!-- Broken Links Table Start -->
     <div class="col-md-12">
         <h3 class="second-table">Broken Links</h3>
+        <div class="card">
         <div class="second-table-section">
-            <!-- Table responsive Start -->
-            <div class="table-responsive">
-                <table class="table table-borderless table-striped defaultDataTable">
-                    <thead>
-                        <tr>
-                            <th scope="col">Links</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% brokenLinks.forEach(function(brokenLink) { %>
-                            <tr>
-                                <td><a href="<%= brokenLink %>" target="_blank" ><%= brokenLink %></a></td>
-                            </tr>
-                        <% }); %> 
-                    </tbody>
-                </table>
+            <div class="seo-checker-data-table seo-checker-table">
+                <div class="table-section">
+                    <div class="site-audit-table">
+                        <div class="table-responsive">
+                            <table class="table table-borderless table-striped defaultDataTable">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Links</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% brokenLinks.forEach(function(brokenLink) { %>
+                                        <tr>
+                                            <td><a href="<%= brokenLink %>" target="_blank">
+                                                    <%= brokenLink %>
+                                                </a></td>
+                                        </tr>
+                                        <% }); %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <!-- Table responsive Start -->
         </div>
     </div>
-    <!-- Crawled Links Table End -->
+</div>
+<!-- Broken Links Table End -->
 
 </div>
 

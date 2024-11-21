@@ -193,6 +193,13 @@
     .traffic-analytics-list .traffic-analytics-box:nth-child(5) {
         border-right: solid 1px #d1d1d1;
     }
+    .table-first .table-section table tbody tr td {
+        word-break: inherit !important;
+      }
+      .seo-checker-data-table.seo-checker-table .table-section table tbody tr td {
+        white-space: nowrap;
+      }
+      
 }
 
 @media (max-width: 767px) {
@@ -312,7 +319,10 @@
     .crawlability-section .crawlability-main {
         grid-template-columns: repeat(1, 1fr);
     }
-    
+    .books-form form {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 }
 
 @media (max-width: 480px) {

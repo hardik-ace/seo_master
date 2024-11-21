@@ -750,7 +750,7 @@ font-weight: 500;
   background-color:rgba(228, 228, 228, 1);
 }
 .seo-checker-data-table.product-data-table .table-section table tbody tr td {
-  white-space: normal;
+  /* white-space: normal; */
   background-color: #fff;
   padding:12px 15px;
 }
@@ -1069,8 +1069,13 @@ h3.second-table {
   max-width: 300px;
   margin-top: 20px;
 }
+.books-form form {
+  display: flex;
+  align-items: center;
+  grid-gap: 15px;
+}
 .books-form form input {
-  border-radius: 10px;
+  border-radius: 6px;
   border: 1px solid rgba(209, 209, 209, 1);
 }
 .books-form form button {
@@ -1081,6 +1086,7 @@ h3.second-table {
   line-height: 22px;
   font-weight: 500;
   border: 0;
+  white-space: nowrap;
 }
 .seo-checker-data-table {
   text-align: left;
@@ -1195,11 +1201,14 @@ h3.second-table {
  font-weight: 400;
  word-break: break-word;
 }
-/* .table-first .table-section table tbody tr td {
-  word-break: inherit !important;
-} */
+
 .table-first .table-section table tbody tr td:nth-child(3) {
-  word-break: break-word !important;
+
+}
+.seo-checker-data-table.seo-checker-table .table-section table thead tr th,
+.seo-checker-data-table.seo-checker-table .table-section table tbody tr td {
+  text-align: left !important;
+  white-space: normal;
 }
 .table-section table tbody tr td a {
   color: rgba(69, 155, 232, 1);
@@ -1213,6 +1222,7 @@ h3.second-table {
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
+  margin-top: 20px;
 }
 /* database table pagination Start*/
 .seo-checker-data-table .table-section .dt-container .dt-layout-row:last-child .dt-layout-end {
@@ -1356,4 +1366,13 @@ box-shadow: none;
   left: 50%;
   top: 50%;
   transform: translate(50%, - 50%);
+}
+.crawler-dashboard-section.crawler-dashboard-main  .card .table-section .site-audit-table table thead tr th {
+  border-top: 0;
+}
+.crawler-dashboard-section.crawler-dashboard-main  .card .table-section .site-audit-table table thead tr th:nth-child(1) {
+  border-right: solid 1px rgba(217, 217, 217, 1);
+}
+.crawler-dashboard-section.crawler-dashboard-main  .card .table-section .site-audit-table table thead tr th:nth-child(2) {
+  border-left: solid 1px rgba(217, 217, 217, 1);
 }
