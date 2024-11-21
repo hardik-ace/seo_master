@@ -753,6 +753,7 @@ font-weight: 500;
   /* white-space: normal; */
   background-color: #fff;
   padding:12px 15px;
+  word-break: break-word;
 }
 .seo-checker-data-table.product-data-table .table-section table tbody tr td:first-child {
   background-color: rgba(242, 242, 242, 1);
@@ -1365,7 +1366,7 @@ box-shadow: none;
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(50%, - 50%);
+  /* transform: translate(-50%, -50%);  */
 }
 .crawler-dashboard-section.crawler-dashboard-main  .card .table-section .site-audit-table table thead tr th {
   border-top: 0;
@@ -1375,4 +1376,7 @@ box-shadow: none;
 }
 .crawler-dashboard-section.crawler-dashboard-main  .card .table-section .site-audit-table table thead tr th:nth-child(2) {
   border-left: solid 1px rgba(217, 217, 217, 1);
+}
+.seo-checker-data-table.table-first .table-section .dt-layout-table {
+  overflow-y: auto;
 }
