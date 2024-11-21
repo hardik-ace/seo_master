@@ -6,6 +6,7 @@ const fs = require('fs');
 const axios = require('axios');
 const cheerio = require('cheerio');
 const path = require('path');
+const fsPromises = fs.promises;
 // const Crawler = require('../helpers/crawler.helpers');
 
 // Load the saved crawl state (or initialize if not found)
@@ -100,6 +101,42 @@ const crawlSite = async (siteUrl,jsonFilePath,maxConcurrent = 10) => {
     return 'Crawling completed!';
 };
 
+const checkCreateFolder = async (folderPath) => {
+  try {
+    // Check if the folder exists
+    await fsPromises.access(folderPath, fs.constants.F_OK);
+    console.log('Folder exists');
+
+    // Check if we have full permissions (read, write, execute)
+    await fsPromises.access(folderPath, fs.constants.R_OK | fs.constants.W_OK | fs.constants.X_OK);
+    console.log('Full permissions available');
+
+    // Ensure no subfolders exist
+    const files = await fsPromises.readdir(folderPath);
+    const subfolders = files.filter(file => {
+      return fs.statSync(path.join(folderPath, file)).isDirectory();
+    });
+
+    if (subfolders.length > 0) {
+      console.log('Subfolders exist. Preventing further subfolder creation.');
+    } else {
+      console.log('No subfolders exist.');
+    }
+
+  } catch (err) {
+    if (err.code === 'ENOENT') {
+      // Folder doesn't exist, create it
+      console.log('Folder does not exist. Creating folder...');
+      await fsPromises.mkdir(folderPath, { recursive: true }); // Create the folder with full permission (including subfolders if necessary)
+      console.log('Folder created successfully');
+    } else if (err.code === 'EACCES') {
+      console.log('Insufficient permissions');
+    } else {
+      console.error('An error occurred:', err);
+    }
+  }
+}
+
 exports.siteCrawlerCron = async function (req, res) {
   var siteUrl = "https://www.qeapps.com"; 
   
@@ -132,18 +169,16 @@ exports.siteCrawlerCron = async function (req, res) {
       siteUrl = "https://"+customerInfo['store_domain']; 
     } 
 
-    var jsonFilePath = path.resolve(__dirname, '../../cron_assets/crawler_json/'+value['file_name']);
+    const folderPath = path.resolve(__dirname, '../../cron_assets/' + customerInfo['store_domain'] + '/' + value['folder'] + '/crawler_json');
+    await checkCreateFolder(folderPath); 
+    var jsonFilePath = folderPath+"/"+value['file_name'];
 
-    var updateDb = {
-      status: "Running"
-    }
+    var updateDb = { status: "Running" }
     CrawlerModel.update(value['id'], new CrawlerModel(updateDb), function (err, update_id) { });
     
     var response = await crawlSite(siteUrl,jsonFilePath,10);
 
-    var updateDb = {
-      status: "Completed"
-    }
+    var updateDb = { status: "Completed" }
     CrawlerModel.update(value['id'], new CrawlerModel(updateDb), function (err, update_id) { });  
   });
 

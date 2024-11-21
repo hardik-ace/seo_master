@@ -126,6 +126,10 @@ exports.addRegistration = function (req, res) {
         req.flash('error', err);
         res.render('auth/register', req.body);
       } else {
+
+        const currentDate = new Date();
+        const formattedDate = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1).toString().padStart(2, '0')}-${currentDate.getDate().toString().padStart(2, '0')}__${currentDate.getHours().toString().padStart(2, '0')}-${currentDate.getMinutes().toString().padStart(2, '0')}-${currentDate.getSeconds().toString().padStart(2, '0')}`;
+
         // code start for add site audit after register
         var customer_id = user;
         let randomInt = Math.floor(Math.random() * 100000000);
@@ -134,7 +138,8 @@ exports.addRegistration = function (req, res) {
         var addSiteAudits = {
           customer_id: customer_id,
           audit_id: randomInt,
-          file_name: randomInt + "_SiteAudit.json",
+          folder: formattedDate,
+          file_name: formattedDate + "_SiteAudit.json",
           status: 'Padding',
         };
         AuditModel.create(new AuditModel(addSiteAudits), function (err, indertId) {
@@ -144,14 +149,15 @@ exports.addRegistration = function (req, res) {
         });
         // code end for add site audit after register
 
-        // code start for add crwal link after register
+        // code start for add crwal link after register 
         let randomIntCrawl = Math.floor(Math.random() * 100000000);
         randomIntCrawl = randomIntCrawl.toString().padStart(8, '0');
 
         var addCrawlerLink = {
           customer_id: customer_id,
           crawler_id: randomIntCrawl,
-          file_name: randomIntCrawl + "_crawledLinks.json",
+          folder: formattedDate,
+          file_name: formattedDate + "_crawledLinks.json",
           status: 'Padding',
         };
 

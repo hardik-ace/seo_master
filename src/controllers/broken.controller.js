@@ -73,6 +73,7 @@ exports.fetchSeoRanking = async function (req, res) {
 exports.allPages = async function (req, res) {
     var id = req.query.id; 
     var customer_id = req.session.customer.id;
+    var store_domain = req.session.customer.store_domain;
     var params = " (customer_id='"+customer_id+"' AND id='"+id+"') ";
 
     CrawlerModel.findOne(params, async function (err, data) {
@@ -81,7 +82,7 @@ exports.allPages = async function (req, res) {
           res.redirect('/dashboard');
         } else {
           if (data) { 
-            const filePath = path.resolve(__dirname, '../../cron_assets/crawler_json/'+data.file_name); 
+            const filePath = path.resolve(__dirname, '../../cron_assets/' + store_domain + '/' + data.folder + '/crawler_json/'+data.file_name);
            
             var crawledArr = [];
             var brokenLinks = [];
@@ -118,15 +119,19 @@ exports.allPages = async function (req, res) {
 
 exports.addCrawlerLinks = async function (req, res) {
     var customer_id = req.session.customer.id;
+    const currentDate = new Date();
+    const formattedDate = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1).toString().padStart(2, '0')}-${currentDate.getDate().toString().padStart(2, '0')}__${currentDate.getHours().toString().padStart(2, '0')}-${currentDate.getMinutes().toString().padStart(2, '0')}-${currentDate.getSeconds().toString().padStart(2, '0')}`;
     let randomInt = Math.floor(Math.random() * 100000000); 
     randomInt = randomInt.toString().padStart(8, '0'); 
+
     var addCrawlerLink = {
         customer_id: customer_id, 
         crawler_id: randomInt,
-        file_name: randomInt+"_crawledLinks.json",
+        folder: formattedDate,
+        file_name: formattedDate+"_crawledLinks.json",
         status: 'Padding',
-    };
-    console.log(addCrawlerLink);
+    }; 
+
     CrawlerModel.create(new CrawlerModel(addCrawlerLink), function (err, indertId) {
         if (err) {
             res.send('error: '+ err); 
