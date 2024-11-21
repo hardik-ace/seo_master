@@ -8,6 +8,7 @@ var Crawler = function (Crawler) {
   this.id = Crawler.id;
   this.customer_id = Crawler.customer_id;
   this.crawler_id = Crawler.crawler_id;
+  this.folder = Crawler.folder;
   this.file_name = Crawler.file_name;
   this.status = Crawler.status;  
 };

@@ -8,6 +8,7 @@ var Audit = function (Audit) {
   this.id = Audit.id;
   this.customer_id = Audit.customer_id;
   this.audit_id = Audit.audit_id;
+  this.folder = Audit.folder;
   this.file_name = Audit.file_name;
   this.status = Audit.status;  
 };
