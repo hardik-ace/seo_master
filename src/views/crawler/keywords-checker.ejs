@@ -1,7 +1,7 @@
 <div class="row">
   <!-- Get ideas Start -->
   <div class="col-md-12">
-    <div class="seo-checker-section bg-rounded">
+    <div class="seo-checker-section seo-checker-section-center bg-rounded">
       <p>Get ideas to improve the organic performance of your website based on competitive analysis.</p>
       <div class="books-form">
         <form>
@@ -35,12 +35,12 @@
   <!-- Table 1 End -->
   <!-- Table 2 Start -->
   <div class="col-xl-6 d-none" id="second_result_div">
-    <div class="seo-checker-data-table bg-rounded p-0">
+    <div class="seo-checker-data-table table-second bg-rounded p-0">
       <div class="table-heading">
         Table 2
       </div>
       <div class="table-section">
-        <div class="table-responsive" id="allKeywordsTable" >
+        <div id="allKeywordsTable" >
           
         </div>
       </div>
@@ -49,12 +49,12 @@
   <!-- Table 2 End -->
   <!-- Table 3 Start -->
   <div class="col-xl-6 d-none" id="third_result_div">
-    <div class="seo-checker-data-table bg-rounded p-0">
+    <div class="seo-checker-data-table table-second bg-rounded p-0">
       <div class="table-heading">
         Table 3
       </div>
       <div class="table-section">
-        <div class="table-responsive" id="refKeywordTable" >
+        <div id="refKeywordTable" >
            
         </div>
       </div>
@@ -142,7 +142,7 @@
   
           // Render serpData (if available)
           if (data.detailedData && data.detailedData.length > 0) {
-            let serpTableHTML = `<div class="table-responsive"><table id="serpTable" class="table table-bordered">
+            let serpTableHTML = `<table id="serpTable" class="table table-bordered">
                                   <thead>
                                     <tr><th>index</th><th>Title</th><th>URL</th><th>Description</th><th>Meta Title</th><th>Meta Description</th></tr>
                                   </thead><tbody>`;
@@ -156,7 +156,7 @@
                                   <td>${item.metaDescription}</td>
                                 </tr>`;
             });
-            serpTableHTML += `</tbody></table></div>`;
+            serpTableHTML += `</tbody></table>`;
             serpDataTable.innerHTML = serpTableHTML;
             $('#serpTable').DataTable();
           }
