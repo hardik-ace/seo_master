@@ -9,97 +9,16 @@ const cheerio = require('cheerio');
 const path = require('path'); 
 var md5 = require('md5');
 const fsPromises = fs.promises;
+var valvelet = require('valvelet');
 
-// Load the saved audit state (or initialize if not found)
-const loadCrawlState = (siteUrl,jsonFilePath) => {
-    if (fs.existsSync(jsonFilePath)) {
-        const data = fs.readFileSync(jsonFilePath, 'utf-8');
-        return JSON.parse(data);
-    } else {
-        return { crawled: [], toCrawl: [siteUrl], brokenLinks: [] };
-    }
-};
+
+const getValvelet = valvelet(function request(i) {
+  return Promise.resolve(`${i} - ${new Date().toISOString()}`);
+}, 1, 1000);
 
 // Save the crawl state to a JSON file
 const saveCrawlState = (siteUrl,jsonFilePath,state) => {
     fs.writeFileSync(jsonFilePath, JSON.stringify(state, null, 2), 'utf-8');
-};
-
-// Normalize the URL for consistency
-const normalizeUrl = (siteUrl,url) => {
-    try {
-        return new URL(url, siteUrl).href.replace(/\/+$/, '');  // Remove trailing slashes
-    } catch {
-        return null;
-    }
-};
-
-// Check if the link is internal (same domain)
-const isInternalLink = (siteUrl,url) => {
-    return url && (url.startsWith(siteUrl) || url.startsWith(new URL(siteUrl).origin));
-};
-
-// Crawl a single page and extract all internal links
-const crawlPage = async (siteUrl, jsonFilePath, url, state, retries = 3) => {
-    try {
-        const response = await axios.get(url, { timeout: 5000 });
-        const $ = cheerio.load(response.data);
-
-        // Extract all internal links
-        $('a[href]').each((_, element) => {
-            const link = $(element).attr('href');
-            const fullUrl = normalizeUrl(siteUrl,link);
-
-            if (fullUrl && isInternalLink(siteUrl,fullUrl) && !state.crawled.includes(fullUrl) && !state.toCrawl.includes(fullUrl)) {
-                state.toCrawl.push(fullUrl);
-            }
-        });
-
-        state.crawled.push(url); // Mark the current URL as crawled
-    } catch (error) {
-        // Retry on failure or mark the link as broken
-        if (retries > 0) {
-            await crawlPage(siteUrl,jsonFilePath, url, state, retries - 1); // Retry
-        } else {
-            state.brokenLinks.push(url); // Mark as broken after retries
-        }
-    }
-
-    saveCrawlState(siteUrl,jsonFilePath,state); // Save after crawling each link
-};
-
-// Recursive crawl function with concurrency
-const crawlSite = async (siteUrl,jsonFilePath,maxConcurrent = 10) => {
-    const state = loadCrawlState(siteUrl,jsonFilePath);
-    let newLinksFound = true;
-
-    // Continue crawling while there are links to crawl
-    while (newLinksFound && state.toCrawl.length > 0) {
-        newLinksFound = false;
-        const linksToProcess = [...state.toCrawl];
-        const promises = [];
-
-        // Process links in batches of maxConcurrent
-        for (let i = 0; i < Math.min(maxConcurrent, linksToProcess.length); i++) {
-            const url = linksToProcess[i];
-
-            if (!state.crawled.includes(url)) {
-                promises.push(crawlPage(siteUrl,jsonFilePath, url, state).then(() => {
-                    const index = state.toCrawl.indexOf(url);
-                    if (index > -1) state.toCrawl.splice(index, 1);
-                }));
-                newLinksFound = true;
-            }
-        }
-
-        await Promise.all(promises);
-        saveCrawlState(siteUrl,jsonFilePath,state);
-    }
-
-    console.log('Crawling completed!');
-    console.log('Total crawled links:', state.crawled.length);
-    console.log('Broken links:', state.brokenLinks.length);
-    return 'Auditing completed!';
 };
 
 const checkCreateFolder = async (folderPath) => {
@@ -142,7 +61,7 @@ exports.generateSeoReportCron = async function (req, res) {
   var siteUrl = "https://www.qeapps.com"; 
   
   const site_audit = await new Promise((resolve, reject) => {
-    var params = "status='Completed' and site_audit_status='Pending' LIMIT 1";
+    var params = "status='Completed' and (site_audit_status='Pending' OR site_audit_status='Running') LIMIT 1";
     AuditModel.find(params, (err, data) => {
       if (err) { 
         reject(err);  
@@ -166,8 +85,8 @@ exports.generateSeoReportCron = async function (req, res) {
       });
     }); 
 
-    // var updateDb = { site_audit_status: "Running" };
-    // AuditModel.update(value['id'], new AuditModel(updateDb), function (err, update_id) { });
+    var updateDb = { site_audit_status: "Running" };
+    AuditModel.update(value['id'], new AuditModel(updateDb), function (err, update_id) { });
 
     const filePath = path.resolve(__dirname, '../../cron_assets/' + customerInfo['store_domain'] + '/' + value.folder + '/site_audit_json/'+value.file_name);
                   
@@ -184,59 +103,68 @@ exports.generateSeoReportCron = async function (req, res) {
 
     const folderPath = path.resolve(__dirname, '../../cron_assets/' + customerInfo['store_domain'] + '/' + value['folder'] + '/seo_report_json');
     await checkCreateFolder(folderPath); 
-
+    var crawledArrLength = crawledArr.length;
     Object.entries(crawledArr).forEach(async crawled => {
       const [cKey, cValue] = crawled;
       var jsonFilePath = folderPath+"/"+md5(cValue)+".json";
-       
-      if(cKey <= 10){
-        const targetUrl = cValue; 
-        const store_domain = customerInfo['store_domain']; 
-        const access_token = customerInfo['access_token'];
-        const seoscore = await Crawler.getSeoScore(targetUrl);
-        const urlToAnalyze = await Crawler.analyzeSEO(targetUrl);
-        const brokenLinks = await Crawler.findBrokenLinks(targetUrl);
-        const masterLinks = await Crawler.crawlSinglePage(targetUrl);
-        const altImagesCount = urlToAnalyze?.missingAlt.length;
+      
+      getValvelet(cKey).then( async function(){
+        const filePathCheck = await Crawler.checkFileExist(jsonFilePath); 
+        console.log(filePathCheck);
+        if(!filePathCheck){
 
-        var seoRanksData;
-        
-        if (req.query.tags != "" && req.query.tags != undefined && req.query.tags != "undefined") {
-            seoRanksData = [];
-            const tags = req.query.tags.split(",");
-            tags.forEach(function (tag) {
-                seoRanksData = seoRanksData.concat({
-                    name: tag.split("_")[0],
-                    url: targetUrl,
-                    ranking: tag.split("_")[1]
-                });
-            });
-        } else {
-            seoRanksData = await Crawler.crawlSinglePageSEORank(targetUrl,store_domain,access_token);    
-        } 
+          const targetUrl = cValue; 
+          const store_domain = customerInfo['store_domain']; 
+          const access_token = customerInfo['access_token'];
+          const seoscore = await Crawler.getSeoScore(targetUrl);
+          const urlToAnalyze = await Crawler.analyzeSEO(targetUrl);
+          const brokenLinks = await Crawler.findBrokenLinks(targetUrl);
+          const masterLinks = await Crawler.crawlSinglePage(targetUrl);
+          const altImagesCount = urlToAnalyze?.missingAlt.length;
 
-        const allHeadingCounts = {};
-        urlToAnalyze?.headings.forEach(heading => {
-            for (const [key, value] of Object.entries(heading)) {
-                allHeadingCounts[`${key.charAt(0).toUpperCase() + key.slice(1)}`] = value.length;
-            }
-        }); 
-        var seoReports = { 
-          seoRanks: seoRanksData, 
-          seoscore: seoscore, 
-          masterLinks: masterLinks, 
-          allPages: brokenLinks, 
-          urlToAnalyze: urlToAnalyze,
-          altImagesCount:altImagesCount,
-          allHeadingCounts:allHeadingCounts 
+          var seoRanksData;
+          
+          if (req.query.tags != "" && req.query.tags != undefined && req.query.tags != "undefined") {
+              seoRanksData = [];
+              const tags = req.query.tags.split(",");
+              tags.forEach(function (tag) {
+                  seoRanksData = seoRanksData.concat({
+                      name: tag.split("_")[0],
+                      url: targetUrl,
+                      ranking: tag.split("_")[1]
+                  });
+              });
+          } else {
+              seoRanksData = await Crawler.crawlSinglePageSEORank(targetUrl,store_domain,access_token);    
+          } 
+
+          const allHeadingCounts = {};
+          urlToAnalyze?.headings.forEach(heading => {
+              for (const [key, value] of Object.entries(heading)) {
+                  allHeadingCounts[`${key.charAt(0).toUpperCase() + key.slice(1)}`] = value.length;
+              }
+          }); 
+          var seoReports = { 
+            seoRanks: seoRanksData, 
+            seoscore: seoscore, 
+            masterLinks: masterLinks, 
+            allPages: brokenLinks, 
+            urlToAnalyze: urlToAnalyze,
+            altImagesCount:altImagesCount,
+            allHeadingCounts:allHeadingCounts 
+          }
+          saveCrawlState(siteUrl,jsonFilePath,seoReports);  
+          // const state = saveCrawlState(siteUrl,jsonFilePath,seoReports);
         }
 
-        const state = saveCrawlState(siteUrl,jsonFilePath,seoReports);
-      }
+        if(crawledArrLength == cKey){
+          var updateDb = { site_audit_status: "Completed" };
+          AuditModel.update(value['id'], new AuditModel(updateDb), function (err, update_id) { });  
+        }
+      });
+      
     });
-
-    var updateDb = { site_audit_status: "Completed" };
-    AuditModel.update(value['id'], new AuditModel(updateDb), function (err, update_id) { });  
+    
   });
 
   res.end("Auditing Completed");

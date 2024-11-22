@@ -240,8 +240,13 @@ const Crawler = {
       
             // Analyze images
             $('img').each((_, el) => {
-                const imgSrc = $(el).attr('src');
+                const imgSrcTmp = $(el).attr('src');
                 const altText = $(el).attr('alt');
+                const absoluteUrl = new URL(imgSrcTmp, url);
+                absoluteUrl.search = '';  // This removes the query parameters
+                // Return the URL without query parameters
+                const imgSrc = absoluteUrl.toString();
+                 
                 //seoIssues.images.push(imgSrc);
                 if (!altText) {
                     seoIssues.missingAlt.push(imgSrc);
@@ -508,7 +513,7 @@ const Crawler = {
             
 
         } catch (error) {
-            console.error('Error fetching search results:', error);
+            //console.error('Error fetching search results:', error);
             return 'An error occurred while fetching the search results.';
         }
     },

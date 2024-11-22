@@ -140,7 +140,8 @@ exports.addRegistration = function (req, res) {
           audit_id: randomInt,
           folder: formattedDate,
           file_name: formattedDate + "_SiteAudit.json",
-          status: 'Padding',
+          status: 'Pending',
+          site_audit_status: "Pending",
         };
         AuditModel.create(new AuditModel(addSiteAudits), function (err, indertId) {
           if (err) {
@@ -158,7 +159,7 @@ exports.addRegistration = function (req, res) {
           crawler_id: randomIntCrawl,
           folder: formattedDate,
           file_name: formattedDate + "_crawledLinks.json",
-          status: 'Padding',
+          status: 'Pending',
         };
 
         CrawlerModel.create(new CrawlerModel(addCrawlerLink), function (err, indertId) {
