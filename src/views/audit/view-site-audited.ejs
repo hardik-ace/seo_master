@@ -68,7 +68,7 @@
                                                     <%= crawledLink %>
                                                 </a></td>
                                                 <td>
-                                                    <a href="/broken/findBrokenLinks?id=<%= id %>&url=<%= crawledLink %>" target="_blank" class="btn btn-primary">Generate Seo Report</a>
+                                                    <a href="/broken/findBrokenLinks?id=<%= id %>&url=<%= encodeURIComponent(crawledLink); %>" target="_blank" class="btn btn-primary">Generate Seo Report</a>
                                                 </td>
                                         </tr>
                                         <% }); %>

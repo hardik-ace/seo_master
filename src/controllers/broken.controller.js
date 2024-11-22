@@ -10,7 +10,7 @@ var md5 = require('md5');
 
 exports.findBrokenLinks = async function (req, res) {
   
-    const targetUrl = req.query.url;
+    const targetUrl = decodeURIComponent(req.query.url);
     
     var id = req.query.id; 
     var customer_id = req.session.customer.id;
@@ -33,21 +33,21 @@ exports.findBrokenLinks = async function (req, res) {
 
     const filePathCheck = await Crawler.checkFileExist(filePath); 
     
-    if(filePathCheck){
-    var seoRanks;
-    var seoscore;
-    var masterLinks;
-    var brokenLinks;
-    var urlToAnalyze;
-    var altImagesCount;
-    var allHeadingCounts = {};
-
+    let seoRanksData;
+    let seoscore;
+    let masterLinks;
+    let brokenLinks;
+    let urlToAnalyze;
+    let altImagesCount;
+    var allHeadingCounts = {}; 
+    
+    if(filePathCheck){ 
         try {
             const data = fs.readFileSync(filePath, 'utf-8'); 
             const seoReportJson = JSON.parse(data);
-            console.log(seoReportJson);
             
-            seoRanks = seoReportJson.seoRanksData;
+            
+            seoRanksData = seoReportJson.seoRanks;
             seoscore = seoReportJson.seoscore;
             masterLinks = seoReportJson.masterLinks;
             brokenLinks = seoReportJson.allPages;
@@ -59,13 +59,12 @@ exports.findBrokenLinks = async function (req, res) {
         }
 
     }else{
-        const seoscore = await Crawler.getSeoScore(targetUrl);
-        const urlToAnalyze = await Crawler.analyzeSEO(targetUrl);
-        const brokenLinks = await Crawler.findBrokenLinks(targetUrl);
-        const masterLinks = await Crawler.crawlSinglePage(targetUrl);
-        const altImagesCount = urlToAnalyze?.missingAlt.length;
-
-        var seoRanksData;
+       
+         seoscore = await Crawler.getSeoScore(targetUrl); 
+         urlToAnalyze = await Crawler.analyzeSEO(targetUrl); 
+         brokenLinks = await Crawler.findBrokenLinks(targetUrl);
+         masterLinks = await Crawler.crawlSinglePage(targetUrl);
+         altImagesCount = urlToAnalyze?.missingAlt.length;
 
         if (req.query.tags != "" && req.query.tags != undefined && req.query.tags != "undefined") {
             seoRanksData = [];
@@ -80,7 +79,7 @@ exports.findBrokenLinks = async function (req, res) {
         } else {
             seoRanksData = await Crawler.crawlSinglePageSEORank(targetUrl,store_domain,access_token);    
         } 
-        const allHeadingCounts = {};
+        var allHeadingCounts = {};
         urlToAnalyze?.headings.forEach(heading => {
             for (const [key, value] of Object.entries(heading)) {
                 allHeadingCounts[`${key.charAt(0).toUpperCase() + key.slice(1)}`] = value.length;
@@ -88,7 +87,16 @@ exports.findBrokenLinks = async function (req, res) {
         }); 
     }
 
-    res.render('broken/find-broken-links', { seoRanks: seoRanksData, seoscore: seoscore, masterLinks: masterLinks, allPages: brokenLinks, urlToAnalyze: urlToAnalyze, altImagesCount: altImagesCount, allHeadingCounts: allHeadingCounts });  
+    var responseData = { seoRanks: seoRanksData,
+                        seoscore: seoscore,
+                        masterLinks: masterLinks,
+                        allPages: brokenLinks,
+                        urlToAnalyze: urlToAnalyze,
+                        altImagesCount: altImagesCount,
+                        allHeadingCounts: allHeadingCounts 
+                    };  
+                    
+    res.render('broken/find-broken-links', responseData);  
 };
 
 exports.fetchSeoRanking = async function (req, res) {

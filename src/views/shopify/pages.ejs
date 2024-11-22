@@ -8,6 +8,9 @@
     <div class="seo-checker-data-table product-data-table">
       <div class="table-section">
         <div class="table-responsive">
+            <div class="spinner-border text-primary me-2 data_table_loader" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
            <table id="product-dashboard-table" class="display nowraptable table-striped fetchDataTable" style="width:100%"></table>    
             </table>
         </div>
@@ -30,6 +33,7 @@
                 ajax: function (data, callback) { 
                     const page = (data.start / data.length) + 1;
                     const limit = data.length; 
+                    $(".data_table_loader").removeClass('d-none');
                     $.ajax({
                         url: `/shopify/getPages?page=${page}&limit=${limit}`,
                         method: 'GET',
@@ -39,6 +43,7 @@
                                 recordsFiltered: response.totalPages,
                                 data: response.final_data,
                             });
+                            $(".data_table_loader").addClass('d-none');
                         },
                         error: function (err) {
                             console.error('Error fetching data:', err);
@@ -71,7 +76,7 @@
                         title: "Action",
                         data: "pageUrl",
                         render: function (data, type, row) {
-                            return `<a href="#" data-href="${data}" class="seorank" >Generate Seo Report</a>`;
+                            return `<a href="#" data-href="`+encodeURIComponent(data)+`" class="seorank" >Generate Seo Report</a>`;
                         },
                         orderable: false,
                     },
