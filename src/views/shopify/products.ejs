@@ -81,7 +81,7 @@
                             title: "Action",
                             data: "productUrl",
                             render: function (data, type, row) {
-                                return `<a href="/broken/findBrokenLinks?url=${data}" target="_blank">Generate Seo Report</a>`;
+                                return `<a href="/broken/findBrokenLinks?url=`+encodeURIComponent(data)+`" target="_blank">Generate Seo Report</a>`;
                             },
                             orderable: false,
                         },
