@@ -1399,3 +1399,185 @@ box-shadow: none;
   flex-direction: column;
   text-align: center;
 }
+/* Keywords-rank-checker Start */
+.keywords-rank-checker-section {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+.keywords-rank-checker-content p {
+  font-weight: 500;
+  margin-bottom: 15px;
+}
+ol.keywords-rank-checker-list {
+  margin: 0;
+  padding: 0;
+}
+ol.keywords-rank-checker-list li {
+  margin: 5px 0 5px 20px;
+  padding: 0;
+  font-size: 15px;
+  line-height: 24px;
+  color: #000;
+  font-weight: 400;
+  text-align: left;
+}
+.keywords-rank-checker-form-main {
+  max-width: 1350px;
+  margin: 10px auto 0;
+  position: relative;
+}
+.keywords-rank-checker-form {
+  max-width: 1024px;
+  width: 100%;
+  margin: 10px auto 0;
+  background-color: #f9f9f9;
+  border: solid 1px #d1d1d1;
+  padding: 30px 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px #cdcaca;
+}
+.keywords-rank-checker-form form input,
+.keywords-rank-checker-form form select {
+  padding: 12px 15px;
+  font-size: 16px;
+  line-height: 18px;
+  color: #000;
+  font-weight: 400;
+  border-radius: 6px;
+}
+.keywords-rank-checker-form form label {
+  font-size: 16px;
+  font-weight: 500;
+}
+.keywords-rank-checker-form form button {
+  width: 100%;
+  border-radius: 6px;
+  background-color: rgba(69, 155, 232, 1);
+  padding: 10px 18px;
+  font-size: 15px;
+  line-height: 22px;
+  font-weight: 500;
+  border: 0;
+}
+.county-box {
+  position: absolute;
+    right: 0;
+    top: 0;
+}
+.county-box label {
+  font-size: 15px;
+  line-height: 18px;
+  color: #000;
+  font-weight: 400;
+  text-align: left;
+  display: block;
+}
+.county-box select {
+  width: 150px;
+  padding: 12px 15px;
+  font-size: 15px;
+  line-height: 18px;
+  color: #fff;
+  font-weight: 400;
+  text-align: left;
+  background-color: rgba(69, 155, 232, 1);
+  border: 0;
+  border-radius: 6px;
+  appearance: none; /* Standard */
+  -webkit-appearance: none; /* Chrome/Safari */
+  -moz-appearance: none; /* Firefox */
+  /* Positioning for the arrow */
+  background-image: url('../images/arrow-down-icon.png');
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 14px;
+  cursor: pointer;
+}
+.county-box select:hover,
+.county-box select:focus,
+.county-box select:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+.keywords-rank-checker-form form button:hover,
+.keywords-rank-checker-form form button:focus,
+.keywords-rank-checker-form form button:focus-visible {
+  background-color: #3284cd;
+}
+.keywords-rank-checker-form  .keywords-rank-table {
+  margin-top: 25px;
+  overflow: hidden;
+  border-radius: 10px;
+  border: solid 1px #dee2e6;
+  border-bottom: 0;
+}
+.keywords-rank-checker-form  .keywords-rank-table  table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 0;
+ 
+}
+.keywords-rank-checker-form  .keywords-rank-table  table thead tr th {
+  background-color: rgba(240, 248, 255, 1);
+}
+.keywords-rank-checker-form  .keywords-rank-table  table thead tr th,
+.keywords-rank-checker-form  .keywords-rank-table  table tbody tr td {
+    padding: 15px;
+ }
+ .keywords-rank-checker-form  .keywords-rank-table  table tbody tr td {
+  font-size: 15px;
+  line-height: 24px;
+  color: #000;
+  text-align: left;
+ }
+ .keywords-rank-checker-form  .keywords-rank-table  table thead tr th:first-child,
+.keywords-rank-checker-form  .keywords-rank-table  table tbody tr td:first-child {
+    border-right: solid 1px #dee2e6;
+ }
+.keywords-rank-checker-form  .keywords-rank-table  table thead tr {
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.keywords-rank-checker-form  .table-responsive::-webkit-scrollbar {
+	height: 10px;
+}
+.keywords-rank-checker-form  .table-responsive::-webkit-scrollbar-track {
+	background-color: #0e2c47 !important;
+}
+.keywords-rank-checker-form  .table-responsive::-webkit-scrollbar-thumb {
+	background-color: #fff;
+	border-radius: 50px;
+	border: 2px solid transparent;
+	background-clip: content-box;
+}
+.keywords-rank-checker-form  .table-responsive::-webkit-scrollbar-thumb:hover {
+	background-color: #196bb4;
+  cursor: pointer;
+}
+
+@media (min-width: 1025px) {
+  /* .keywords-rank-checker-form-main .county-box {
+      display: none;
+  } */
+  }
+  @media (max-width: 1024px) {
+  .keywords-rank-checker-form {
+      padding: 100px 20px 30px;
+  }
+  .county-box {
+      top: 15px;
+      right: 20px;
+  }
+  .keywords-rank-checker-form .county-box {
+      display: block;
+  }
+  }
+@media (max-width: 480px) {
+  .keywords-rank-checker-form  .keywords-rank-table  table tbody tr td {
+      word-break: break-word;
+      white-space: nowrap;
+     }
+  }

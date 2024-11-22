@@ -17,7 +17,8 @@ var dashboardRouters = require('./src/routes/dashboard.routes');
 var shopifyRouters = require('./src/routes/shopify.routes'); 
 var crawlerRouters = require('./src/routes/crawler.routes'); 
 var brokenRouters = require('./src/routes/broken.routes'); 
-var auditRouters = require('./src/routes/audit.routes'); 
+var auditRouters = require('./src/routes/audit.routes');
+var keywordRouters = require('./src/routes/keyword.routes'); 
 var app = express();
 
 app.use(express.json());
@@ -79,6 +80,8 @@ app.use('/shopify', shopifyRouters);
 app.use('/crawler', crawlerRouters);
 app.use('/broken', brokenRouters);
 app.use('/audit', auditRouters);
+app.use('/keyword', keywordRouters);
+
 
 
 // catch 404 and forward to error handler
