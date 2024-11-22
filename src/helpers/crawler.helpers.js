@@ -7,7 +7,7 @@ const { URL } = require('url');
 const got = require('got'); 
 const https = require('https'); 
 const puppeteer = require('puppeteer');
-
+const fs = require('fs').promises;
 
 const referenceKeyword = []; 
 const prefixes = ['best', 'top'];
@@ -15,7 +15,14 @@ const suffixes = ['for sales', 'for SEO', 'for marketing', 'for ecommerce', 'to 
 const maxKeywords = 10000; 
 
 const Crawler = {
-    
+    checkFileExist: async (folderPath) => {
+        try {
+            await fs.access(folderPath, fs.constants.F_OK); 
+            return true;  // If no error is thrown, file exists
+        } catch (err) { 
+            return false; // If error is thrown, file does not exist
+        }
+    },
     // Helper function to validate links
     isValidLink: async (link) => { 
         const isSocialMedia = /facebook|twitter|instagram|linkedin|pinterest|tumblr|reddit/i.test(link);

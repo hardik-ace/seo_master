@@ -1,47 +1,94 @@
 'use strict';
 // const Dashboard = require('../models/dashboard.model'); 
 // const bcrypt = require('bcrypt');
+const AuditModel = require('../models/audit.model'); 
 const CrawlerModel = require('../models/crawler.model');
 const path = require('path');
 const fs = require('fs');
 const Crawler = require('../helpers/crawler.helpers');
+var md5 = require('md5');
 
 exports.findBrokenLinks = async function (req, res) {
   
-  const targetUrl = req.query.url; 
-  const store_domain = req.session.customer.store_domain; 
-  const access_token = req.session.customer.access_token;
-  const seoscore = await Crawler.getSeoScore(targetUrl);
-  const urlToAnalyze = await Crawler.analyzeSEO(targetUrl);
-  const brokenLinks = await Crawler.findBrokenLinks(targetUrl);
-  const masterLinks = await Crawler.crawlSinglePage(targetUrl);
-  const altImagesCount = urlToAnalyze?.missingAlt.length;
+    const targetUrl = req.query.url;
+    
+    var id = req.query.id; 
+    var customer_id = req.session.customer.id;
+    var store_domain = req.session.customer.store_domain;
+    const access_token = req.session.customer.access_token;
+    var params = " (customer_id='"+customer_id+"' AND id='"+id+"') ";
 
-  var seoRanksData;
-  
-  if (req.query.tags != "" && req.query.tags != undefined && req.query.tags != "undefined") {
-      seoRanksData = [];
-      const tags = req.query.tags.split(",");
-      tags.forEach(function (tag) {
-          seoRanksData = seoRanksData.concat({
-              name: tag.split("_")[0],
-              url: targetUrl,
-              ranking: tag.split("_")[1]
-          });
-      });
-  } else {
-      seoRanksData = await Crawler.crawlSinglePageSEORank(targetUrl,store_domain,access_token);    
-  }
-  console.log(seoRanksData);
+    const site_audit = await new Promise((resolve, reject) => {
+        var params = "status='Completed' and id="+id;
+        AuditModel.findOne(params, (err, data) => {
+            if (err) { 
+                reject(err);  
+            } else {
+                resolve(data);  
+            }
+        });
+    }); 
 
-  const allHeadingCounts = {};
-  urlToAnalyze?.headings.forEach(heading => {
-      for (const [key, value] of Object.entries(heading)) {
-          allHeadingCounts[`${key.charAt(0).toUpperCase() + key.slice(1)}`] = value.length;
-      }
-  });
-  console.log(urlToAnalyze);
-  res.render('broken/find-broken-links', { seoRanks: seoRanksData, seoscore: seoscore, masterLinks: masterLinks, allPages: brokenLinks, urlToAnalyze: urlToAnalyze,altImagesCount:altImagesCount,allHeadingCounts:allHeadingCounts });  
+    const filePath = path.resolve(__dirname, '../../cron_assets/' + store_domain + '/' + site_audit.folder + '/seo_report_json'+"/"+md5(targetUrl)+".json");
+
+    const filePathCheck = await Crawler.checkFileExist(filePath); 
+    
+    if(filePathCheck){
+    var seoRanks;
+    var seoscore;
+    var masterLinks;
+    var brokenLinks;
+    var urlToAnalyze;
+    var altImagesCount;
+    var allHeadingCounts = {};
+
+        try {
+            const data = fs.readFileSync(filePath, 'utf-8'); 
+            const seoReportJson = JSON.parse(data);
+            console.log(seoReportJson);
+            
+            seoRanks = seoReportJson.seoRanksData;
+            seoscore = seoReportJson.seoscore;
+            masterLinks = seoReportJson.masterLinks;
+            brokenLinks = seoReportJson.allPages;
+            urlToAnalyze = seoReportJson.urlToAnalyze;
+            altImagesCount = seoReportJson.altImagesCount;
+            allHeadingCounts = seoReportJson.allHeadingCounts;
+        } catch (err) {
+            console.log(err);
+        }
+
+    }else{
+        const seoscore = await Crawler.getSeoScore(targetUrl);
+        const urlToAnalyze = await Crawler.analyzeSEO(targetUrl);
+        const brokenLinks = await Crawler.findBrokenLinks(targetUrl);
+        const masterLinks = await Crawler.crawlSinglePage(targetUrl);
+        const altImagesCount = urlToAnalyze?.missingAlt.length;
+
+        var seoRanksData;
+
+        if (req.query.tags != "" && req.query.tags != undefined && req.query.tags != "undefined") {
+            seoRanksData = [];
+            const tags = req.query.tags.split(",");
+            tags.forEach(function (tag) {
+                seoRanksData = seoRanksData.concat({
+                    name: tag.split("_")[0],
+                    url: targetUrl,
+                    ranking: tag.split("_")[1]
+                });
+            });
+        } else {
+            seoRanksData = await Crawler.crawlSinglePageSEORank(targetUrl,store_domain,access_token);    
+        } 
+        const allHeadingCounts = {};
+        urlToAnalyze?.headings.forEach(heading => {
+            for (const [key, value] of Object.entries(heading)) {
+                allHeadingCounts[`${key.charAt(0).toUpperCase() + key.slice(1)}`] = value.length;
+            }
+        }); 
+    }
+
+    res.render('broken/find-broken-links', { seoRanks: seoRanksData, seoscore: seoscore, masterLinks: masterLinks, allPages: brokenLinks, urlToAnalyze: urlToAnalyze, altImagesCount: altImagesCount, allHeadingCounts: allHeadingCounts });  
 };
 
 exports.fetchSeoRanking = async function (req, res) {
@@ -129,7 +176,7 @@ exports.addCrawlerLinks = async function (req, res) {
         crawler_id: randomInt,
         folder: formattedDate,
         file_name: formattedDate+"_crawledLinks.json",
-        status: 'Padding',
+        status: 'Pending',
     }; 
 
     CrawlerModel.create(new CrawlerModel(addCrawlerLink), function (err, indertId) {

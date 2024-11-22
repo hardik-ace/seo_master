@@ -35,7 +35,7 @@ exports.loginProcess = function (req, res) {
               status: user.status,
               store_domain: user.store_domain,
               access_token: user.access_token,
-              site_url: "https://qetest1.myshopify.com",
+              site_url: "https://"+user.store_domain,
               created_at: user.created_at,
             };
 

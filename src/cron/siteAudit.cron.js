@@ -140,7 +140,7 @@ exports.siteAuditCron = async function (req, res) {
   var siteUrl = "https://www.qeapps.com"; 
   
   const site_audit = await new Promise((resolve, reject) => {
-    var params = "status='Padding' LIMIT 2";
+    var params = "status='Pending' LIMIT 2";
     AuditModel.find(params, (err, data) => {
       if (err) { 
         reject(err);  

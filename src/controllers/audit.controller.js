@@ -36,7 +36,7 @@ exports.addSiteAudit = async function (req, res) {
       audit_id: randomInt,
       folder: formattedDate,
       file_name: formattedDate+"_SiteAudit.json",
-      status: 'Padding',
+      status: 'Pending',
   };
   console.log(addSiteAudits);
   AuditModel.create(new AuditModel(addSiteAudits), function (err, indertId) {
@@ -82,7 +82,8 @@ exports.viewSiteAudited = async function (req, res) {
           res.render('audit/view-site-audited', {
               crawledLinks: crawledArr,
               brokenLinks: brokenLinks,
-              toCrawl: toCrawl
+              toCrawl: toCrawl,
+              id: data.id
           });
 
         } else {

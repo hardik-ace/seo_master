@@ -58,6 +58,7 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">Links</th>
+                                        <th scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -66,6 +67,9 @@
                                             <td><a href="<%= crawledLink %>" target="_blank">
                                                     <%= crawledLink %>
                                                 </a></td>
+                                                <td>
+                                                    <a href="/broken/findBrokenLinks?id=<%= id %>&url=<%= crawledLink %>" target="_blank" class="btn btn-primary">Generate Seo Report</a>
+                                                </td>
                                         </tr>
                                         <% }); %>
                                 </tbody>

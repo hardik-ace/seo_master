@@ -7,7 +7,9 @@
     "start": "nodemon server"
   },
   "nodemonConfig": {
-    "ignore": [ "cron_assets/*"]
+    "ignore": [
+      "cron_assets/*"
+    ]
   },
   "engines": {
     "node": ">= 14.17.0"
@@ -48,6 +50,7 @@
     "json_encode": "^0.1.0",
     "jsonwebtoken": "^9.0.1",
     "link-check": "^5.4.0",
+    "md5": "^2.3.0",
     "method-override": "^3.0.0",
     "mongoose": "^8.4.0",
     "morgan": "^1.10.0",

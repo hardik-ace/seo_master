@@ -1,15 +1,16 @@
 'use strict';
 // const Dashboard = require('../models/dashboard.model'); 
-const CrawlerModel = require('../models/crawler.model');
+const AuditModel = require('../models/audit.model');
 const CustomerModel = require('../models/auth.model');
+const Crawler = require('../helpers/crawler.helpers');
 const fs = require('fs');
 const axios = require('axios');
 const cheerio = require('cheerio');
-const path = require('path');
+const path = require('path'); 
+var md5 = require('md5');
 const fsPromises = fs.promises;
-// const Crawler = require('../helpers/crawler.helpers');
 
-// Load the saved crawl state (or initialize if not found)
+// Load the saved audit state (or initialize if not found)
 const loadCrawlState = (siteUrl,jsonFilePath) => {
     if (fs.existsSync(jsonFilePath)) {
         const data = fs.readFileSync(jsonFilePath, 'utf-8');
@@ -98,7 +99,7 @@ const crawlSite = async (siteUrl,jsonFilePath,maxConcurrent = 10) => {
     console.log('Crawling completed!');
     console.log('Total crawled links:', state.crawled.length);
     console.log('Broken links:', state.brokenLinks.length);
-    return 'Crawling completed!';
+    return 'Auditing completed!';
 };
 
 const checkCreateFolder = async (folderPath) => {
@@ -137,12 +138,12 @@ const checkCreateFolder = async (folderPath) => {
   }
 }
 
-exports.siteCrawlerCron = async function (req, res) {
+exports.generateSeoReportCron = async function (req, res) {
   var siteUrl = "https://www.qeapps.com"; 
   
-  const crawler_links = await new Promise((resolve, reject) => {
-    var params = "status='Pending' LIMIT 2";
-    CrawlerModel.find(params, (err, data) => {
+  const site_audit = await new Promise((resolve, reject) => {
+    var params = "status='Completed' and site_audit_status='Pending' LIMIT 1";
+    AuditModel.find(params, (err, data) => {
       if (err) { 
         reject(err);  
       } else {
@@ -151,8 +152,8 @@ exports.siteCrawlerCron = async function (req, res) {
     });
   }); 
   
-  Object.entries(crawler_links).forEach(async crawler_link => {
-    const [key, value] = crawler_link; 
+  Object.entries(site_audit).forEach(async site_audit_info => {
+    const [key, value] = site_audit_info; 
 
     const customerInfo = await new Promise((resolve, reject) => {
       var params = "id='"+value['customer_id']+"' ";
@@ -163,25 +164,81 @@ exports.siteCrawlerCron = async function (req, res) {
           resolve(data);  
         }
       });
-    });
+    }); 
 
-    if(customerInfo['store_domain']!=''){
-      siteUrl = "https://"+customerInfo['store_domain']; 
+    // var updateDb = { site_audit_status: "Running" };
+    // AuditModel.update(value['id'], new AuditModel(updateDb), function (err, update_id) { });
+
+    const filePath = path.resolve(__dirname, '../../cron_assets/' + customerInfo['store_domain'] + '/' + value.folder + '/site_audit_json/'+value.file_name);
+                  
+    var crawledArr = []; 
+    if (filePath) {
+        try {
+            const data = fs.readFileSync(filePath, 'utf-8'); 
+            const crawledJson = JSON.parse(data);
+            crawledArr = crawledJson.crawled;
+        } catch (err) {
+            console.log(err);
+        }
     } 
 
-    const folderPath = path.resolve(__dirname, '../../cron_assets/' + customerInfo['store_domain'] + '/' + value['folder'] + '/crawler_json');
+    const folderPath = path.resolve(__dirname, '../../cron_assets/' + customerInfo['store_domain'] + '/' + value['folder'] + '/seo_report_json');
     await checkCreateFolder(folderPath); 
-    var jsonFilePath = folderPath+"/"+value['file_name'];
 
-    var updateDb = { status: "Running" }
-    CrawlerModel.update(value['id'], new CrawlerModel(updateDb), function (err, update_id) { });
-    
-    var response = await crawlSite(siteUrl,jsonFilePath,10);
+    Object.entries(crawledArr).forEach(async crawled => {
+      const [cKey, cValue] = crawled;
+      var jsonFilePath = folderPath+"/"+md5(cValue)+".json";
+       
+      if(cKey <= 10){
+        const targetUrl = cValue; 
+        const store_domain = customerInfo['store_domain']; 
+        const access_token = customerInfo['access_token'];
+        const seoscore = await Crawler.getSeoScore(targetUrl);
+        const urlToAnalyze = await Crawler.analyzeSEO(targetUrl);
+        const brokenLinks = await Crawler.findBrokenLinks(targetUrl);
+        const masterLinks = await Crawler.crawlSinglePage(targetUrl);
+        const altImagesCount = urlToAnalyze?.missingAlt.length;
 
-    var updateDb = { status: "Completed" }
-    CrawlerModel.update(value['id'], new CrawlerModel(updateDb), function (err, update_id) { });  
+        var seoRanksData;
+        
+        if (req.query.tags != "" && req.query.tags != undefined && req.query.tags != "undefined") {
+            seoRanksData = [];
+            const tags = req.query.tags.split(",");
+            tags.forEach(function (tag) {
+                seoRanksData = seoRanksData.concat({
+                    name: tag.split("_")[0],
+                    url: targetUrl,
+                    ranking: tag.split("_")[1]
+                });
+            });
+        } else {
+            seoRanksData = await Crawler.crawlSinglePageSEORank(targetUrl,store_domain,access_token);    
+        } 
+
+        const allHeadingCounts = {};
+        urlToAnalyze?.headings.forEach(heading => {
+            for (const [key, value] of Object.entries(heading)) {
+                allHeadingCounts[`${key.charAt(0).toUpperCase() + key.slice(1)}`] = value.length;
+            }
+        }); 
+        var seoReports = { 
+          seoRanks: seoRanksData, 
+          seoscore: seoscore, 
+          masterLinks: masterLinks, 
+          allPages: brokenLinks, 
+          urlToAnalyze: urlToAnalyze,
+          altImagesCount:altImagesCount,
+          allHeadingCounts:allHeadingCounts 
+        }
+
+        const state = saveCrawlState(siteUrl,jsonFilePath,seoReports);
+      }
+    });
+
+    var updateDb = { site_audit_status: "Completed" };
+    AuditModel.update(value['id'], new AuditModel(updateDb), function (err, update_id) { });  
   });
 
-  res.end("Crawling completed");
+  res.end("Auditing Completed");
 };
  

@@ -5,7 +5,11 @@
       <div class="seo-report-list">
         <div class="seo-report-box">
           <h3>SEO Score</h3>
-          <p>Count: <span><%= seoscore.seoScore %></span></p>
+          <p>Count: <span>
+            <% if(seoscore.seoScore.length > 0) { %>
+            <%= seoscore.seoScore %>
+            <% } %>
+          </span></p>
         </div>
         <div class="seo-report-box">
           <h3>Missing Alt Images</h3>
@@ -250,6 +254,7 @@ SEO Ranks
           <div class="table-responsive">
           <table class="table table-hover my-0 display" style="width:100%">
             <tbody>
+              <% if(Array.isArray(seoRanks)) { %>
               <% seoRanks.forEach(function(item) { %>
               <tr>
                 <td class="d-xl-table-cell"><%= item.name %></td>
@@ -268,6 +273,7 @@ SEO Ranks
             </td>
           </tr>
           <% }); %>
+          <% }; %>
         </tbody>
       </table>
     </div>
@@ -315,6 +321,7 @@ Crawled Links
 <div class="accordion-body">
 <div class="accordion-discription">
 <ul>
+  <% if(Array.isArray(masterLinks)) { %>
 <% masterLinks.forEach(function(item) { %>
 <li><span class="text-right"> <%= item %></span>
 <span class="text-left"><a href="<%= item %>" target="_blank">
@@ -324,6 +331,7 @@ Crawled Links
 <line x1="10" y1="14" x2="21" y2="3"></line>
 </svg></a></span></li>
 <% }); %>
+<% } %>
 </ul>
 </div>
 

@@ -11,6 +11,7 @@ var Audit = function (Audit) {
   this.folder = Audit.folder;
   this.file_name = Audit.file_name;
   this.status = Audit.status;  
+  this.site_audit_status = Audit.site_audit_status;
 };
 
 Audit.create = async function (newEmp, result) {
