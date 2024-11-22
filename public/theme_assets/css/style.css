@@ -121,7 +121,8 @@ p {
   font-size: 16px;
   line-height: 22px;
   font-weight: 300;
-  color: rgba(139, 167, 192, 1);
+  /* color: rgba(139, 167, 192, 1); */
+  color: #fff;
   text-decoration: none;
   width: max-content;
   transition: all 0.2s;
@@ -140,6 +141,7 @@ p {
 }
 .left-menu ul li a img {
   width: 24px;
+  filter: contrast(10);
 }
 .left-menu ul li a:hover img {
   filter: contrast(10);
@@ -757,7 +759,11 @@ font-weight: 500;
 }
 .seo-checker-data-table.product-data-table .table-section table tbody tr td:first-child {
   background-color: rgba(242, 242, 242, 1);
-} 
+}
+.seo-checker-data-table.product-data-table .table-section table tbody tr td:first-child img {
+  width: 100px;
+  height: 100px;
+}
 .seo-checker-data-table.product-data-table .table-section .dt-container .dt-layout-row:first-child {
   display: none;
 }
@@ -1424,17 +1430,17 @@ ol.keywords-rank-checker-list li {
   text-align: left;
 }
 .keywords-rank-checker-form-main {
-  max-width: 1350px;
+  max-width: 1425px;
   margin: 10px auto 0;
   position: relative;
 }
 .keywords-rank-checker-form {
-  max-width: 1024px;
+  /* max-width: 1024px; */
   width: 100%;
   margin: 10px auto 0;
   background-color: #f9f9f9;
   border: solid 1px #d1d1d1;
-  padding: 30px 20px;
+  padding: 105px 20px 30px;
   border-radius: 10px;
   box-shadow: 0 2px 8px #cdcaca;
 }
@@ -1463,8 +1469,8 @@ ol.keywords-rank-checker-list li {
 }
 .county-box {
   position: absolute;
-    right: 0;
-    top: 0;
+  right: 20px;
+  top: 18px;
 }
 .county-box label {
   font-size: 15px;
