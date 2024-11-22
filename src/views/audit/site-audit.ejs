@@ -20,6 +20,7 @@
                                         <th>Audit Id</th>
                                         <th>Status</th>
                                         <th>Actions</th>
+                                        <th>Generate Seo Report</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -28,7 +29,7 @@
                                             <td>
                                                 <%= item.audit_id %>
                                             </td>
-                                            <td>
+                                            <td class="audit_status">
                                                 <%= item.status %>
                                             </td>
                                             <td>
@@ -46,8 +47,19 @@
                                                             <line x1="10" y1="14" x2="21" y2="3"></line>
                                                         </svg>
                                                     </a>
-                                                    <% } %>
+                                                    <% }else if(item.status=='Pending'){ %>
+                                                        <a href="#" class="btn-default run_audit">Add New Audit</a>
+                                                    <% } %> 
                                             </td>
+
+                                            <td>
+                                                <% if(item.status=='Completed' && item.site_audit_status=='Pending' ) { %>  
+                                                    <a href="#" class="btn-default run_site_audit_report">Generate Seo Report</a>
+                                                <% }else if(item.site_audit_status=='Running'){%> 
+                                                    <%= item.site_audit_status %>
+                                                <% } %> 
+                                            </td>
+
                                         </tr>
                                         <% }); %>
                                 </tbody>
@@ -62,9 +74,47 @@
     </div>
 <script>
     $( document ).ready(function() {
+        var anchors = $('.audit_status'), counter = 0;
+        var interval;
+        var anchors_data = ""; 
+        anchors.each(function() {
+           
+            if($(this).text().trim() == 'Pending'){
+                anchors_data = $(this).text().trim(); 
+            }
+        });
+        interval = setInterval(function(){
+            if(anchors_data == 'Pending'){
+                window.location.reload();
+            }else{
+                clearInterval(interval);
+            }
+        }, 15000);
         let table = new DataTable('.defaultDataTable', {
             pageLength: 25,
             responsive: true
         });
+
+        $(document).on("click",".run_audit",function() {
+            $.ajax({
+                url: "/cron/siteAuditCron",
+                cache: false,
+                success: function(){
+                    console.log("Done");
+                }
+            });
+        });
+
+        $(document).on("click",".run_site_audit_report",function() {
+            $.ajax({
+                url: "/cron/generateSeoReportCron",
+                cache: false,
+                success: function(){
+                    console.log("Done");
+                }
+            });
+        });
+            
+
     });
 </script>
