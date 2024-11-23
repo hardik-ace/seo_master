@@ -2,6 +2,7 @@
 const AuditModel = require('../models/audit.model'); 
 const path = require('path');
 const fs = require('fs');
+const fsDel = require('fs').promises;
 // const bcrypt = require('bcrypt');
 // const Crawler = require('../helpers/crawler.helpers');
 
@@ -37,8 +38,9 @@ exports.addSiteAudit = async function (req, res) {
       folder: formattedDate,
       file_name: formattedDate+"_SiteAudit.json",
       status: 'Pending',
-  };
-  console.log(addSiteAudits);
+      site_audit_status: 'Pending',
+  }; 
+
   AuditModel.create(new AuditModel(addSiteAudits), function (err, indertId) {
       if (err) {
           res.send('error: '+ err); 
@@ -60,8 +62,8 @@ exports.viewSiteAudited = async function (req, res) {
         res.redirect('/dashboard');
       } else {
         if (data) { 
-          const filePath = path.resolve(__dirname, '../../cron_assets/' + store_domain + '/' + data.folder + '/site_audit_json/'+data.file_name);
-                  
+          const filePath = path.resolve(__dirname, '../../cron_assets/' + store_domain + '/' + data.folder + '/site_audit_json/'+data.file_name); 
+
           var crawledArr = [];
           var brokenLinks = [];
           var toCrawl = [];
@@ -89,6 +91,90 @@ exports.viewSiteAudited = async function (req, res) {
         } else {
           req.flash('error', 'User does not exist.');
           res.redirect('/dashboard');
+        }
+      }
+  });
+ 
+};
+
+async function deleteFolderRecursive(dir) {
+  try {
+    const files = await fsDel.readdir(dir);  // Read the directory contents
+
+    // Loop through each item in the folder
+    for (const file of files) {
+      const filePath = path.join(dir, file);  // Construct the full file path
+      const stat = await fsDel.stat(filePath);  // Get stats for the file (whether it's a file or directory)
+
+      if (stat.isDirectory()) {
+        // If it's a directory, call the function recursively to delete its contents
+        await deleteFolderRecursive(filePath);
+      } else {
+        // If it's a file, delete it
+        await fsDel.unlink(filePath);
+      }
+    }
+
+    // Finally, remove the empty directory itself
+    await fsDel.rmdir(dir);
+    console.log(`Folder ${dir} deleted successfully!`);
+  } catch (err) {
+    console.error('Error while deleting folder:', err);
+    throw err;  // Rethrow the error for higher-level handling
+  }
+}
+
+
+exports.deleteAuditReport = async function (req, res) {
+  var id = req.body.delete_id; 
+  var customer_id = req.session.customer.id;
+  var store_domain = req.session.customer.store_domain;
+  var params = " (customer_id='"+customer_id+"' AND id='"+id+"') ";
+  console.log(params);
+  AuditModel.findOne(params, async function (err, data) {
+      if (err) {
+        req.flash('error', err);
+        res.redirect('/dashboard');
+      } else {
+        
+        if (data) { 
+
+          if(data.status == 'Pending'){
+            AuditModel.delete(id, function (err, user) {
+              if (err) { 
+                req.flash('error', err)  
+              } else {
+                req.flash('success', 'User successfully deleted! ID = ' + req.params.id); 
+              }
+            });
+            // req.flash('success', 'Report Deleted successfully.');
+            res.json({status:"Success",msg:"Report Deleted successfully."}); 
+          }else{
+            const filePath = path.resolve(__dirname, '../../cron_assets/' + store_domain + '/' + data.folder);
+            console.log(filePath);
+            await deleteFolderRecursive(filePath)
+            .then(() => { 
+
+              AuditModel.delete(id, function (err, user) {
+                if (err) { 
+                  req.flash('error', err)  
+                } else {
+                  req.flash('success', 'User successfully deleted! ID = ' + req.params.id); 
+                }
+              });
+
+              // req.flash('success', 'Report Deleted successfully.');
+              res.json({status:"Success",msg:"Report Deleted successfully."}); 
+            })
+            .catch(err => {
+              req.flash('error', 'An error occurred while processing your request.'); 
+              res.status(500).json({ status:"Failed",error: "Error during deletion" });
+            });
+          }
+
+        } else {  
+          req.flash('error', 'An error occurred while processing your request.'); 
+          res.status(500).json({ status:"Failed",error: "An error occurred while processing your request." });
         }
       }
   });

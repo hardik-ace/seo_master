@@ -29,9 +29,9 @@
     <div class="header-center-title">
       <h2>
         <% if (typeof pageTitle !== 'undefined'   && pageTitle && pageTitle !=='') { %>
-          <%- pageTitle %>
+          <%- pageTitle %> - <%= session.customer ? session.customer.site_url : '' %>
         <% } else { %>
-          SEO
+          SEO - <%= session.customer ? session.customer.site_url : '' %>
         <% }%>
       </h2>
     </div>

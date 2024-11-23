@@ -1222,7 +1222,21 @@ h3.second-table {
   color: rgba(69, 155, 232, 1);
   text-decoration: none;
 }
-
+.table-section table tbody tr td a.audited-btn {
+    background-color: rgba(69, 155, 232, 1);
+    border-radius: 5px;
+    font-size: 14px;
+    line-height: 22px;
+    font-weight: 500;
+    text-decoration: none;
+    color: #fff;
+    padding: 9px 17px;
+    border: 0;
+    clear: both;
+    margin: 0 0 15px 0;
+    display: inline-block;
+    text-align: right;
+}
 .table-section table tbody tr td:nth-child(2) {
   padding-left: 15px;
 }
@@ -1231,6 +1245,11 @@ h3.second-table {
   justify-content: center;
   margin-bottom: 20px;
   margin-top: 20px;
+}
+.seo-checker-data-table.seo-checker-table.crawled-links-table .table-section table thead tr th, 
+.seo-checker-data-table.seo-checker-table.crawled-links-table .table-section table tbody tr td {
+  text-align: left !important;
+  white-space: nowrap;
 }
 /* database table pagination Start*/
 .seo-checker-data-table .table-section .dt-container .dt-layout-row:last-child .dt-layout-end {
@@ -1563,6 +1582,9 @@ ol.keywords-rank-checker-list li {
 	background-color: #196bb4;
   cursor: pointer;
 }
+
+
+
 
 @media (min-width: 1025px) {
   /* .keywords-rank-checker-form-main .county-box {

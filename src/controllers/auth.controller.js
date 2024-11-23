@@ -167,8 +167,8 @@ exports.addRegistration = function (req, res) {
             res.send('error: ' + err);
           }
         });
-
-        req.flash('success', 'User successfully added');
+        
+        req.flash('success', 'Account Registration successfully.');
         res.redirect('/auth');
       }
     });

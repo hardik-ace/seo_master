@@ -82,5 +82,14 @@ Audit.update = function (id, params, result) {
   });
 };
 
+Audit.delete = function (id, result) {
+  dbConn.query("DELETE FROM site_audit WHERE id = ?", [id], function (err, res) {
+    if (err) { 
+      result(null, err);
+    }else{
+      result(null, res);
+    }
+  });
+};
 
 module.exports = Audit;

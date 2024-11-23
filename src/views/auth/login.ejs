@@ -20,6 +20,22 @@
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap"
       rel="stylesheet">
+      <style>
+        .danger-msg {
+            background-color: #ffdbdb;
+            padding: 12px 15px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            font-size: 13px;
+          }
+          .success-msg {
+            background-color: #dcf2d7;
+            padding: 12px 15px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            font-size: 13px;
+          }
+      </style>
   </head>
 
   <body>
@@ -41,9 +57,17 @@
                 <div class="card-body">
                   <div class="m-sm-3">
                     <form action="/auth/login" method="POST"> 
+                      <% if (messages.success) { %>
+                        <div class="success-msg">
+                          <div class="alert alert-success" role="alert"><%- messages.success %></div>
+                        </div>
+                      <% } %>
+                      
                       <% if (messages.error) { %>
-                        <div class="text-danger" role="alert"><%- messages.error %></div>
-                        <% } %> 
+                        <div class="danger-msg">
+                          <div class="text-danger" role="alert"><%- messages.error %></div>
+                        </div>
+                       <% } %> 
                       <div class="mb-3">
                         <label class="form-label">Email</label>
                         <input class="form-control form-control-lg" type="text"

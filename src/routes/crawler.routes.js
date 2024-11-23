@@ -9,7 +9,4 @@ router.get('/homePage', crawlerController.crawlerHomePage);
 
 router.get('/allPages', crawlerController.crawlerAllPages);
 
-router.get('/keywords', crawlerController.crawlerKeywords);
-router.get('/keywordsAnalyze', crawlerController.keywordsAnalyze);
-
 module.exports = router;

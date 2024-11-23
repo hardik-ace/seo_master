@@ -8,4 +8,6 @@ router.get('/siteAudit', auditController.siteAudit);
 router.get('/addSiteAudit', auditController.addSiteAudit);
 router.get('/viewSiteAudited', auditController.viewSiteAudited);
 
+router.post('/deleteAuditReport', auditController.deleteAuditReport);
+
 module.exports = router;

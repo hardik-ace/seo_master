@@ -11,7 +11,6 @@ var md5 = require('md5');
 exports.findBrokenLinks = async function (req, res) {
   
     const targetUrl = decodeURIComponent(req.query.url);
-    
     var id = req.query.id; 
     var customer_id = req.session.customer.id;
     var store_domain = req.session.customer.store_domain;

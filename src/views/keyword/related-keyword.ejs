@@ -21,23 +21,12 @@
   <div id="loader" style="display: none;">
       <div class="spinner-border" role="status"></div>
   </div>
-  <!-- Table 1 Start -->
-  <div class="col-md-12 d-none" id="first_result_div">
-    <div class="seo-checker-data-table table-first bg-rounded p-0">
-      <div class="table-heading">
-        Table 1
-      </div>
-      <div class="table-section" id="serpDataTable" >
-        
-      </div>
-    </div>
-  </div>
-  <!-- Table 1 End -->
+   
   <!-- Table 2 Start -->
-  <div class="col-xl-6 d-none" id="second_result_div">
+  <div class="col-xl-12 d-none" id="second_result_div">
     <div class="seo-checker-data-table table-second bg-rounded p-0">
       <div class="table-heading">
-        Table 2
+        Keywords
       </div>
       <div class="table-section">
         <div id="allKeywordsTable" >
@@ -46,22 +35,7 @@
       </div>
     </div>
   </div>
-  <!-- Table 2 End -->
-  <!-- Table 3 Start -->
-  <div class="col-xl-6 d-none" id="third_result_div">
-    <div class="seo-checker-data-table table-second bg-rounded p-0">
-      <div class="table-heading">
-        Table 3
-      </div>
-      <div class="table-section">
-        <div id="refKeywordTable" >
-           
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Table 3 End -->
-  
+  <!-- Table 2 End --> 
 </div>
 
 
@@ -108,17 +82,13 @@
       const loader = document.getElementById("loader");
       
       // display table
-      if(keyword !== "") {
-        $('#first_result_div').removeClass('d-none');
-        $('#second_result_div').removeClass('d-none');
-        $('#third_result_div').removeClass('d-none');
+      if(keyword !== "") { 
+        $('#second_result_div').removeClass('d-none'); 
       }
 
       // Clear previous data
-      alertBox.style.display = "none";
-      document.getElementById("serpDataTable").innerHTML = "";
-      document.getElementById("allKeywordsTable").innerHTML = "";
-      document.getElementById("refKeywordTable").innerHTML = "";
+      alertBox.style.display = "none"; 
+      document.getElementById("allKeywordsTable").innerHTML = ""; 
   
       if (!keyword) {
         showAlert("Enter a keyword to analyze.");
@@ -129,7 +99,7 @@
       loader.style.display = "flex";
   
       try {
-        const response = await fetch(`/crawler/keywordsAnalyze?keyword=${encodeURIComponent(keyword)}`, {
+        const response = await fetch(`/keyword/keywordsAnalyze?analyze_type=allKeywordsTable&keyword=${encodeURIComponent(keyword)}`, {
           method: "GET",
           headers: { "Content-Type": "application/json" },
         });
@@ -139,27 +109,6 @@
           
           // Hide loader once data is fetched
           loader.style.display = "none";
-  
-          // Render serpData (if available)
-          if (data.detailedData && data.detailedData.length > 0) {
-            let serpTableHTML = `<table id="serpTable" class="table table-bordered">
-                                  <thead>
-                                    <tr><th>index</th><th>Title</th><th>URL</th><th>Description</th><th>Meta Title</th><th>Meta Description</th></tr>
-                                  </thead><tbody>`;
-            data.detailedData.forEach((item, index) => {
-              serpTableHTML += `<tr>
-                                  <td>${index + 1}</td>
-                                  <td>${item.title}</td>
-                                  <td><a href="${item.url}" target="_blank">${item.url}</a></td>
-                                  <td>${item.description}</td>
-                                  <td>${item.metaTitle}</td>
-                                  <td>${item.metaDescription}</td>
-                                </tr>`;
-            });
-            serpTableHTML += `</tbody></table>`;
-            serpDataTable.innerHTML = serpTableHTML;
-            $('#serpTable').DataTable();
-          }
   
           // Render allKeywords (if available)
           if (data.allKeywords && data.allKeywords.length > 0) {
@@ -177,23 +126,7 @@
             allKeywordsTable.innerHTML = keywordsTableHTML;
             $('#keywordsTable').DataTable();
           }
-  
-          // Render refKeyword (if available)
-          if (data.refKeyword && data.refKeyword.length > 0) {
-            let refKeywordsTableHTML = `<table id="refKeywordsTable" class="table table-bordered">
-                                         <thead>
-                                           <tr><th>index</th><th>Keyword</th></tr>
-                                         </thead><tbody>`;
-            data.refKeyword.forEach((item, index) => {
-              refKeywordsTableHTML += `<tr>
-                                         <td>${index + 1}</td>
-                                         <td>${item.keyword}</td>
-                                       </tr>`;
-            });
-            refKeywordsTableHTML += `</tbody></table>`;
-            refKeywordTable.innerHTML = refKeywordsTableHTML;
-            $('#refKeywordsTable').DataTable();
-          }
+
         } else {
           loader.style.display = "none";
           showAlert("Error fetching data. Please try again.");

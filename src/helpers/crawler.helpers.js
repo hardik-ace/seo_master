@@ -38,9 +38,10 @@ const Crawler = {
         try {
             const { body } = await got(url);
             const $ = cheerio.load(body);
-      
+           
             $('a').each((index, element) => {
                 const href = $(element).attr('href');
+               
                 if (href) {
                     const absoluteUrl = new URL(href, url).href;
                     
@@ -49,18 +50,19 @@ const Crawler = {
                     }
                 }
             });
-      
+            
             return Array.from(masterLinks);
         } catch (error) {
-            console.error(`Error fetching ${url}:`, error.message);
+            // console.error(`Error fetching ${url}:`, error.message);
             return [];
         }
     },
     // Function to crawl only the starting page
     crawlSinglePage: async (url) => { 
         const masterLinks = new Set();
-        await Crawler.fetchLinks(url, masterLinks);
-        return masterLinks;
+        var masterLinksData = await Crawler.fetchLinks(url, masterLinks);
+        
+        return masterLinksData;
     },
     // Helper function to validate links
     fetchGoogleSearchRankings: async (query, targetUrl) => { 

@@ -66,8 +66,9 @@ app.use(session({
 //     secret: 'secret'
 // }));
  
-app.get("/api", (req, res) => {
-    res.json({ message: "New React Project Setup" });
+app.use((req, res, next) => {
+    res.locals.session = req.session;
+    next();
 });
 
 app.use(flash()); 
@@ -89,4 +90,4 @@ app.use(function(req, res, next) {
     res.status(404).send("Page Not Found");
 });
 
-app.listen(6017);
+app.listen(6018);
